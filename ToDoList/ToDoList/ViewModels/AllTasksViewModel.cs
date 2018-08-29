@@ -3,7 +3,7 @@ using ToDoList.Models;
 
 namespace ToDoList.ViewModels
 {
-    public class TasksViewModel
+    public class AllTasksViewModel
     {
         public List<ToDoTask> Tasks { get; set; }
     }

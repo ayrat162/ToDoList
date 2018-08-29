@@ -1,12 +1,12 @@
-﻿@model ToDoList.ViewModels.SingleTaskViewModel
+﻿@model ToDoList.Models.ToDoTask
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }            
 
 
 
-<h2>Task: @Model.ToDoTask.Description</h2>
+<h2>Task: @Model.Description</h2>
 <table class="table table-hover table-striped">
     <thead>
         <tr>
@@ -22,10 +22,10 @@
     <tbody>
             <tr>
                 <td>
-                    @Model.ToDoTask.Description
+                    @Model.Description
                 </td>
                 <td>
-                    @Model.ToDoTask.DueDateTime
+                    @Model.DueDateTime
                 </td>
             </tr>
     </tbody>

@@ -2,13 +2,8 @@
 
 namespace ToDoList.Controllers
 {
-    public class HomeController : Controller
+    public class PagesController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult About()
         {
             return View();
