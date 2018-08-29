@@ -12,7 +12,9 @@ namespace ToDoList.Models
         public DateTime DueDateTime { get; set; }
         public string Status { get; set; }
         public Classification Classification { get; set; }
-        public int ClassificationId { get; set; }
+        public int? ClassificationId { get; set; }
+        public ToDoTask ConnectedToDoTask { get; set; }
+        public int? ConnectedtoDoTaskId { get; set; }
         public byte[] Image { get; set; }
     }
 }
