@@ -10,7 +10,7 @@ namespace ToDoList.Controllers
     public class TasksController : Controller
     {
         private ApplicationDbContext _context;
-
+        
         public TasksController()
         {
             _context = new ApplicationDbContext();
