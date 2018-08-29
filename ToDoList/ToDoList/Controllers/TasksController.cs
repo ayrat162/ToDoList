@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using ToDoList.Models;
 using ToDoList.ViewModels;
@@ -49,11 +51,23 @@ namespace ToDoList.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(ToDoTask toDoTask)
+        public ActionResult Save(ToDoTask toDoTask, HttpPostedFileBase uploadImage)
         {
+            byte[] imageData = null;
+            using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+            {
+                imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+            }
+
             if (toDoTask.Id == 0)
             {
-                _context.ToDoTasks.Add(toDoTask);
+                _context.ToDoTasks.Add(new ToDoTask(){
+                    Description = toDoTask.Description,
+                    ClassificationId = toDoTask.ClassificationId,
+                    DueDateTime = toDoTask.DueDateTime,
+                    Status = toDoTask.Status,
+                    Image = imageData
+                });
             }
             else
             {
@@ -62,6 +76,7 @@ namespace ToDoList.Controllers
                 toDoTaskInDb.DueDateTime = toDoTask.DueDateTime;
                 toDoTaskInDb.ClassificationId = toDoTask.ClassificationId;
                 toDoTaskInDb.Status = toDoTask.Status;
+                toDoTaskInDb.Image = imageData;
             }
             _context.SaveChanges();
             return RedirectToAction("Index", "Tasks");

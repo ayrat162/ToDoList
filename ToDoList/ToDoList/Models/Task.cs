@@ -13,5 +13,6 @@ namespace ToDoList.Models
         public string Status { get; set; }
         public Classification Classification { get; set; }
         public int ClassificationId { get; set; }
+        public byte[] Image { get; set; }
     }
 }
