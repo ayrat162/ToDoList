@@ -53,32 +53,41 @@ namespace ToDoList.Controllers
         [HttpPost]
         public ActionResult Save(ToDoTask toDoTask, HttpPostedFileBase uploadImage)
         {
-            byte[] imageData = null;
-            using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+            if (ModelState.IsValid)
             {
-                imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
-            }
+                byte[] imageData = null;
+                if (uploadImage != null)
+                {
+                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                    {
+                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                    }
+                }
 
-            if (toDoTask.Id == 0)
-            {
-                _context.ToDoTasks.Add(new ToDoTask(){
-                    Description = toDoTask.Description,
-                    ClassificationId = toDoTask.ClassificationId,
-                    DueDateTime = toDoTask.DueDateTime,
-                    Status = toDoTask.Status,
-                    Image = imageData
-                });
+                if (toDoTask.Id == 0) // uploading new item
+                {
+                    _context.ToDoTasks.Add(new ToDoTask()
+                    {
+                        Description = toDoTask.Description,
+                        ClassificationId = toDoTask.ClassificationId,
+                        DueDateTime = toDoTask.DueDateTime,
+                        Status = toDoTask.Status,
+                        Image = imageData
+                    });
+                }
+                else // upoloading edited item data
+                {
+                    var toDoTaskInDb = _context.ToDoTasks.Single(t => t.Id == toDoTask.Id);
+                    toDoTaskInDb.Description = toDoTask.Description;
+                    toDoTaskInDb.DueDateTime = toDoTask.DueDateTime;
+                    toDoTaskInDb.ClassificationId = toDoTask.ClassificationId;
+                    toDoTaskInDb.Status = toDoTask.Status;
+                    if (imageData != null)
+                        toDoTaskInDb.Image = imageData;
+                }
+
+                _context.SaveChanges();
             }
-            else
-            {
-                var toDoTaskInDb = _context.ToDoTasks.Single(t => t.Id == toDoTask.Id);
-                toDoTaskInDb.Description = toDoTask.Description;
-                toDoTaskInDb.DueDateTime = toDoTask.DueDateTime;
-                toDoTaskInDb.ClassificationId = toDoTask.ClassificationId;
-                toDoTaskInDb.Status = toDoTask.Status;
-                toDoTaskInDb.Image = imageData;
-            }
-            _context.SaveChanges();
             return RedirectToAction("Index", "Tasks");
         }
 
