@@ -5,6 +5,6 @@ namespace ToDoList.ViewModels
 {
     public class AllTasksViewModel
     {
-        public List<ToDoTask> Tasks { get; set; }
+        public IEnumerable<ToDoTask> Tasks { get; set; }
     }
 }

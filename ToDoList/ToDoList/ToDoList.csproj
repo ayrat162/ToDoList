@@ -225,6 +225,7 @@
     <Compile Include="Models\Classification.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Repository.cs" />
     <Compile Include="Models\ToDoTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

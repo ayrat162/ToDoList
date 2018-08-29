@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Web;
 using System.Web.Mvc;
 using ToDoList.Models;
@@ -11,30 +12,16 @@ namespace ToDoList.Controllers
 {
     public class TasksController : Controller
     {
-        private ApplicationDbContext _context;
-        public TasksController()
-        {
-            _context = new ApplicationDbContext();
-        }
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        }
-        private List<ToDoTask> GetTasks()
-        {
-            return _context.ToDoTasks.Include(t => t.Classification).ToList();
-        }
-
         public ActionResult Index()
         {
-            var viewModel = new AllTasksViewModel {Tasks = GetTasks() };
+            var viewModel = new AllTasksViewModel {Tasks = Repository.GetTasks() };
             return View(viewModel);
         }
 
         [Route("Tasks/{id:regex(\\d):range(0, 1000000)}")]
         public ActionResult Info(int id)
         {
-            var toDoTask = GetTasks().SingleOrDefault(c => c.Id == id);
+            var toDoTask = Repository.FindToDoTask(id);
             if (toDoTask == null) return HttpNotFound();
             return View(toDoTask);
         }
@@ -42,11 +29,10 @@ namespace ToDoList.Controllers
         [Route("Tasks/New")]
         public ActionResult New()
         {
-            var classifications = _context.Classifications.ToList();
             var viewModel = new EditTaskViewModel
             {
-                Classifications = classifications,
-                ToDoTasks = _context.ToDoTasks.ToList()
+                Classifications = Repository.GetClassifications(),
+                ToDoTasks = Repository.GetTasks()
             };
             return View(viewModel);
         }
@@ -65,7 +51,7 @@ namespace ToDoList.Controllers
 
             if (toDoTask.Id == 0) // uploading new item
             {
-                _context.ToDoTasks.Add(new ToDoTask()
+                Repository.AddToDoTask(new ToDoTask()
                 {
                     Description = toDoTask.Description,
                     ClassificationId = toDoTask.ClassificationId,
@@ -75,9 +61,9 @@ namespace ToDoList.Controllers
                     Image = imageData
                 });
             }
-            else // upoloading edited item data
+            else // uploading edited item data
             {
-                var toDoTaskInDb = _context.ToDoTasks.Single(t => t.Id == toDoTask.Id);
+                var toDoTaskInDb = Repository.FindToDoTask(toDoTask.Id);
                 toDoTaskInDb.Description = toDoTask.Description;
                 toDoTaskInDb.DueDateTime = toDoTask.DueDateTime;
                 toDoTaskInDb.ClassificationId = toDoTask.ClassificationId;
@@ -85,32 +71,30 @@ namespace ToDoList.Controllers
                 toDoTaskInDb.Status = toDoTask.Status;
                 if (imageData != null)
                     toDoTaskInDb.Image = imageData;
+                Repository.Save();
             }
-
-            _context.SaveChanges();
             return RedirectToAction("Index", "Tasks");
         }
 
         [Route("Tasks/Delete/{id:regex(\\d):range(0, 1000000)}")]
         public ActionResult Delete(int id)
         {
-            _context.ToDoTasks.Remove(_context.ToDoTasks.Single(t => t.Id == id));
-            _context.SaveChanges();
+            Repository.RemoveToDoTask(id);
             return RedirectToAction("Index", "Tasks");
         }
 
         [Route("Tasks/Edit/{id:regex(\\d):range(0, 1000000)}")]
         public ActionResult Edit(int id)
         {
-            var toDoTask = _context.ToDoTasks.SingleOrDefault(t => t.Id == id);
+            var toDoTask = Repository.FindToDoTask(id);
             if (toDoTask == null)
             {
                 return HttpNotFound();
             }
             var viewModel = new EditTaskViewModel
             {
-                Classifications = _context.Classifications.ToList(),
-                ToDoTasks = _context.ToDoTasks.ToList(),
+                Classifications = Repository.GetClassifications(),
+                ToDoTasks = Repository.GetTasks(),
                 ToDoTask = toDoTask
             };
             return View(viewModel);
