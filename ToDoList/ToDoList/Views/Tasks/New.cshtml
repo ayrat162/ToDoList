@@ -22,7 +22,11 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.ToDoTask.ClassificationId)
-        @Html.DropDownListFor(m => m.ToDoTask.ClassificationId, new SelectList(Model.Classifications, "Id", "Name"), "",  new { @class = "form-control" })
+        @Html.DropDownListFor(m => m.ToDoTask.ClassificationId, new SelectList(Model.Classifications, "Id", "Name"), "", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ToDoTask.ConnectedtoDoTaskId)
+        @Html.DropDownListFor(m => m.ToDoTask.ConnectedtoDoTaskId, new SelectList(Model.ToDoTasks, "Id", "Description"), "", new { @class = "form-control" })
     </div>
     <div class="form-group">
         <div>Upload File</div>

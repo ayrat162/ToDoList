@@ -22,7 +22,7 @@ namespace ToDoList.Controllers
         }
         private List<ToDoTask> GetTasks()
         {
-            return _context.ToDoTasks.Include(c => c.Classification).ToList();
+            return _context.ToDoTasks.Include(t => t.Classification).ToList();
         }
 
         public ActionResult Index()
@@ -45,7 +45,8 @@ namespace ToDoList.Controllers
             var classifications = _context.Classifications.ToList();
             var viewModel = new EditTaskViewModel
             {
-                Classifications = classifications
+                Classifications = classifications,
+                ToDoTasks = _context.ToDoTasks.ToList()
             };
             return View(viewModel);
         }
@@ -53,41 +54,40 @@ namespace ToDoList.Controllers
         [HttpPost]
         public ActionResult Save(ToDoTask toDoTask, HttpPostedFileBase uploadImage)
         {
-            if (ModelState.IsValid)
+            byte[] imageData = null;
+            if (uploadImage != null)
             {
-                byte[] imageData = null;
-                if (uploadImage != null)
+                using (var binaryReader = new BinaryReader(uploadImage.InputStream))
                 {
-                    using (var binaryReader = new BinaryReader(uploadImage.InputStream))
-                    {
-                        imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
-                    }
+                    imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
                 }
-
-                if (toDoTask.Id == 0) // uploading new item
-                {
-                    _context.ToDoTasks.Add(new ToDoTask()
-                    {
-                        Description = toDoTask.Description,
-                        ClassificationId = toDoTask.ClassificationId,
-                        DueDateTime = toDoTask.DueDateTime,
-                        Status = toDoTask.Status,
-                        Image = imageData
-                    });
-                }
-                else // upoloading edited item data
-                {
-                    var toDoTaskInDb = _context.ToDoTasks.Single(t => t.Id == toDoTask.Id);
-                    toDoTaskInDb.Description = toDoTask.Description;
-                    toDoTaskInDb.DueDateTime = toDoTask.DueDateTime;
-                    toDoTaskInDb.ClassificationId = toDoTask.ClassificationId;
-                    toDoTaskInDb.Status = toDoTask.Status;
-                    if (imageData != null)
-                        toDoTaskInDb.Image = imageData;
-                }
-
-                _context.SaveChanges();
             }
+
+            if (toDoTask.Id == 0) // uploading new item
+            {
+                _context.ToDoTasks.Add(new ToDoTask()
+                {
+                    Description = toDoTask.Description,
+                    ClassificationId = toDoTask.ClassificationId,
+                    DueDateTime = toDoTask.DueDateTime,
+                    Status = toDoTask.Status,
+                    ConnectedtoDoTaskId = toDoTask.ConnectedtoDoTaskId,
+                    Image = imageData
+                });
+            }
+            else // upoloading edited item data
+            {
+                var toDoTaskInDb = _context.ToDoTasks.Single(t => t.Id == toDoTask.Id);
+                toDoTaskInDb.Description = toDoTask.Description;
+                toDoTaskInDb.DueDateTime = toDoTask.DueDateTime;
+                toDoTaskInDb.ClassificationId = toDoTask.ClassificationId;
+                toDoTaskInDb.ConnectedtoDoTaskId = toDoTask.ConnectedtoDoTaskId;
+                toDoTaskInDb.Status = toDoTask.Status;
+                if (imageData != null)
+                    toDoTaskInDb.Image = imageData;
+            }
+
+            _context.SaveChanges();
             return RedirectToAction("Index", "Tasks");
         }
 
@@ -110,6 +110,7 @@ namespace ToDoList.Controllers
             var viewModel = new EditTaskViewModel
             {
                 Classifications = _context.Classifications.ToList(),
+                ToDoTasks = _context.ToDoTasks.ToList(),
                 ToDoTask = toDoTask
             };
             return View(viewModel);
