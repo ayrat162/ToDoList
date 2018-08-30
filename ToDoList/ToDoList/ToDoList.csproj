@@ -220,6 +220,14 @@
     <Compile Include="Migrations\201808291705152_MakeClassificationNullable.Designer.cs">
       <DependentUpon>201808291705152_MakeClassificationNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808301257311_AddUserToTasks.cs" />
+    <Compile Include="Migrations\201808301257311_AddUserToTasks.Designer.cs">
+      <DependentUpon>201808301257311_AddUserToTasks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808301328408_ChangeUserIdTypeToString.cs" />
+    <Compile Include="Migrations\201808301328408_ChangeUserIdTypeToString.Designer.cs">
+      <DependentUpon>201808301328408_ChangeUserIdTypeToString.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Classification.cs" />
@@ -341,6 +349,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808291705152_MakeClassificationNullable.resx">
       <DependentUpon>201808291705152_MakeClassificationNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808301257311_AddUserToTasks.resx">
+      <DependentUpon>201808301257311_AddUserToTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808301328408_ChangeUserIdTypeToString.resx">
+      <DependentUpon>201808301328408_ChangeUserIdTypeToString.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
