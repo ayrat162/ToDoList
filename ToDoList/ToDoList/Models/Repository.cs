@@ -37,7 +37,7 @@ namespace ToDoList.Models
         }
         public static ToDoTask FindToDoTask(int id)
         {
-            return _context.ToDoTasks.SingleOrDefault(task => task.Id == id);
+            return _context.ToDoTasks.Include(t => t.User).SingleOrDefault(task => task.Id == id);
         }
         public static void AddToDoTask(ToDoTask toDoTask)
         {

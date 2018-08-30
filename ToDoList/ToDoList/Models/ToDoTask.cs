@@ -16,5 +16,7 @@ namespace ToDoList.Models
         public ToDoTask ConnectedToDoTask { get; set; }
         public int? ConnectedtoDoTaskId { get; set; }
         public byte[] Image { get; set; }
+        public ApplicationUser User { get; set; }
+        public string UserId { get; set; }
     }
 }

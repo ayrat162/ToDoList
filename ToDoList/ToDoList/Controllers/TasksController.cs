@@ -5,13 +5,22 @@ using System.Linq;
 using System.Security;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using ToDoList.Models;
 using ToDoList.ViewModels;
 
 namespace ToDoList.Controllers
 {
+    [Authorize]
     public class TasksController : Controller
     {
+        private ApplicationUser CurrentUser()
+        {
+            return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
+                .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+        }
+
         public ActionResult Index()
         {
             var viewModel = new AllTasksViewModel {Tasks = Repository.GetTasks() };
@@ -23,6 +32,7 @@ namespace ToDoList.Controllers
         {
             var toDoTask = Repository.FindToDoTask(id);
             if (toDoTask == null) return HttpNotFound();
+            if (toDoTask.User == null || toDoTask.User.Id != CurrentUser().Id) return RedirectToAction("Index", "Tasks");
             return View(toDoTask);
         }
 
@@ -58,12 +68,14 @@ namespace ToDoList.Controllers
                     DueDateTime = toDoTask.DueDateTime,
                     Status = toDoTask.Status,
                     ConnectedtoDoTaskId = toDoTask.ConnectedtoDoTaskId,
+                    UserId = CurrentUser().Id,
                     Image = imageData
                 });
             }
             else // uploading edited item data
             {
                 var toDoTaskInDb = Repository.FindToDoTask(toDoTask.Id);
+                if (toDoTaskInDb.User.Id != CurrentUser().Id) return RedirectToAction("Index", "Tasks");
                 toDoTaskInDb.Description = toDoTask.Description;
                 toDoTaskInDb.DueDateTime = toDoTask.DueDateTime;
                 toDoTaskInDb.ClassificationId = toDoTask.ClassificationId;
