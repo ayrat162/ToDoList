@@ -3,26 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EmailSender.Handlers;
 using ToDoList.Models;
+using DateTime = System.DateTime;
 
 namespace EmailSender
 {
-    class Program
+    class EmailSender
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Started");
+            var text = "";
             Repository.Connect();
-            Console.WriteLine("Connected");
-            int i = 0;
             foreach (var toDoTask in Repository.GetTasks())
             {
-                Console.WriteLine(i++);
-                Console.WriteLine(toDoTask.Description);
+                text += $"<p>{DateTime.Now} : {toDoTask.Description}</p>";
             }
-
-            Console.WriteLine("Done");
-            Console.ReadKey();
+            EmailHandler.SendMessage(text);
         }
     }
 }
