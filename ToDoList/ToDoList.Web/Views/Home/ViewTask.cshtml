@@ -1,0 +1,11 @@
+﻿@model ToDoList.Web.ViewModels.ToDoTaskViewModel
+@{
+    ViewBag.Title = "ViewTask";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ViewTask</h2>
+<h3>
+    @Model.Id : @Model.Description : @Model.DueDateTime.ToString()
+</h3>
+

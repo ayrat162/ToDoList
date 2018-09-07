@@ -1,27 +1,38 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using ToDoList.Core.DTO;
+using ToDoList.Core.Interfaces;
 using ToDoList.Web.ViewModels;
 
 namespace ToDoList.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private IToDoTaskService toDoTaskService;
+        public HomeController(IToDoTaskService service)
+        {
+            toDoTaskService = service;
+        }
+
         public ActionResult Index()
         {
-            return View(db.ToDoTasks.ToList());
+            var toDoTaskDtos = toDoTaskService.GetToDoTasks();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToDoTaskDTO, ToDoTaskViewModel>()).CreateMapper();
+            var toDoTasks = mapper.Map<IEnumerable<ToDoTaskDTO>, IEnumerable<ToDoTaskViewModel>>(toDoTaskDtos);
+            return View(toDoTasks);
         }
 
         public ActionResult ViewTask(int? id)
         {
             if (id == null)
                 return HttpNotFound();
-            var toDoTask = db.ToDoTasks.Find(id);
-            if (toDoTask == null)
+            var toDoTaskDto = toDoTaskService.GetToDoTask(id);
+            if (toDoTaskDto == null)
                 return HttpNotFound();
-            var toDoTaskViewModel = new ToDoTaskViewModel { Description = toDoTask.Description, DueDateTime = toDoTask.DueDateTime };
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToDoTaskDTO, ToDoTaskViewModel>()).CreateMapper();
+            var toDoTaskViewModel = mapper.Map<ToDoTaskDTO, ToDoTaskViewModel>(toDoTaskDto);
             return View(toDoTaskViewModel);
         }
 

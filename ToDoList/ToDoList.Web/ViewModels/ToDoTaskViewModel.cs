@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using ToDoList.Web.Models;
 
 namespace ToDoList.Web.ViewModels
 {
