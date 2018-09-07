@@ -176,59 +176,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808162149404_InitialModel.cs" />
-    <Compile Include="Migrations\201808162149404_InitialModel.Designer.cs">
-      <DependentUpon>201808162149404_InitialModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808162200414_Status_Added_To_ToDoTasks.cs" />
-    <Compile Include="Migrations\201808162200414_Status_Added_To_ToDoTasks.Designer.cs">
-      <DependentUpon>201808162200414_Status_Added_To_ToDoTasks.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808162213485_Added_Classification__Added_it_to_Task.cs" />
-    <Compile Include="Migrations\201808162213485_Added_Classification__Added_it_to_Task.Designer.cs">
-      <DependentUpon>201808162213485_Added_Classification__Added_it_to_Task.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808162220008_Populate_Classification_Types.cs" />
-    <Compile Include="Migrations\201808162220008_Populate_Classification_Types.Designer.cs">
-      <DependentUpon>201808162220008_Populate_Classification_Types.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808162241169_Classifications_Populated.cs" />
-    <Compile Include="Migrations\201808162241169_Classifications_Populated.Designer.cs">
-      <DependentUpon>201808162241169_Classifications_Populated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808162244482_Remove_Unnecessary_Classifications.cs" />
-    <Compile Include="Migrations\201808162244482_Remove_Unnecessary_Classifications.Designer.cs">
-      <DependentUpon>201808162244482_Remove_Unnecessary_Classifications.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808162246330_Remove_Unnecessary_Classifications_2.cs" />
-    <Compile Include="Migrations\201808162246330_Remove_Unnecessary_Classifications_2.Designer.cs">
-      <DependentUpon>201808162246330_Remove_Unnecessary_Classifications_2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808291458419_AddClassifications.cs" />
-    <Compile Include="Migrations\201808291458419_AddClassifications.Designer.cs">
-      <DependentUpon>201808291458419_AddClassifications.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808291523109_AddFileToTaskView.cs" />
-    <Compile Include="Migrations\201808291523109_AddFileToTaskView.Designer.cs">
-      <DependentUpon>201808291523109_AddFileToTaskView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808291654451_AddConnectedToDoTask.cs" />
-    <Compile Include="Migrations\201808291654451_AddConnectedToDoTask.Designer.cs">
-      <DependentUpon>201808291654451_AddConnectedToDoTask.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808291705152_MakeClassificationNullable.cs" />
-    <Compile Include="Migrations\201808291705152_MakeClassificationNullable.Designer.cs">
-      <DependentUpon>201808291705152_MakeClassificationNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808301257311_AddUserToTasks.cs" />
-    <Compile Include="Migrations\201808301257311_AddUserToTasks.Designer.cs">
-      <DependentUpon>201808301257311_AddUserToTasks.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808301328408_ChangeUserIdTypeToString.cs" />
-    <Compile Include="Migrations\201808301328408_ChangeUserIdTypeToString.Designer.cs">
-      <DependentUpon>201808301328408_ChangeUserIdTypeToString.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Classification.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -315,47 +262,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808162149404_InitialModel.resx">
-      <DependentUpon>201808162149404_InitialModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808162200414_Status_Added_To_ToDoTasks.resx">
-      <DependentUpon>201808162200414_Status_Added_To_ToDoTasks.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808162213485_Added_Classification__Added_it_to_Task.resx">
-      <DependentUpon>201808162213485_Added_Classification__Added_it_to_Task.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808162220008_Populate_Classification_Types.resx">
-      <DependentUpon>201808162220008_Populate_Classification_Types.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808162241169_Classifications_Populated.resx">
-      <DependentUpon>201808162241169_Classifications_Populated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808162244482_Remove_Unnecessary_Classifications.resx">
-      <DependentUpon>201808162244482_Remove_Unnecessary_Classifications.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808162246330_Remove_Unnecessary_Classifications_2.resx">
-      <DependentUpon>201808162246330_Remove_Unnecessary_Classifications_2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808291458419_AddClassifications.resx">
-      <DependentUpon>201808291458419_AddClassifications.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808291523109_AddFileToTaskView.resx">
-      <DependentUpon>201808291523109_AddFileToTaskView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808291654451_AddConnectedToDoTask.resx">
-      <DependentUpon>201808291654451_AddConnectedToDoTask.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808291705152_MakeClassificationNullable.resx">
-      <DependentUpon>201808291705152_MakeClassificationNullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808301257311_AddUserToTasks.resx">
-      <DependentUpon>201808301257311_AddUserToTasks.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808301328408_ChangeUserIdTypeToString.resx">
-      <DependentUpon>201808301328408_ChangeUserIdTypeToString.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
