@@ -1,6 +1,6 @@
-﻿namespace ToDoList.DAL.Entities
+﻿namespace ToDoList.Core.DTO
 {
-    public class Classification
+    public class ClassificationDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
