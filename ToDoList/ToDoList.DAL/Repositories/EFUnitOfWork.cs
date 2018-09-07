@@ -1,7 +1,7 @@
 ﻿using System;
+using ToDoList.DAL.EF;
 using ToDoList.DAL.Entities;
 using ToDoList.DAL.Interfaces;
-using ToDoList.Web.Models;
 
 namespace ToDoList.DAL.Repositories
 {
@@ -11,9 +11,9 @@ namespace ToDoList.DAL.Repositories
         private ToDoTaskRepository toDoTaskRepository;
         private ClassificationRepository classificationRepository;
 
-        public EFUnitOfWork(string connectionString)
+        public EFUnitOfWork()
         {
-            db = new ToDoListContext(connectionString);
+            db = new ToDoListContext();
         }
 
         public IRepository<ToDoTask> ToDoTasks

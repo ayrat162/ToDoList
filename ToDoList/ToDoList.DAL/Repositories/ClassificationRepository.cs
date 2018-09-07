@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using ToDoList.DAL.EF;
 using ToDoList.DAL.Entities;
 using ToDoList.DAL.Interfaces;
-using ToDoList.Web.Models;
 
 namespace ToDoList.DAL.Repositories
 {

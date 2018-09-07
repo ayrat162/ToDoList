@@ -55,12 +55,21 @@
     <Compile Include="Entities\ToDoTask.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Migrations\201809071621417_Add5Tasks.cs" />
+    <Compile Include="Migrations\201809071621417_Add5Tasks.Designer.cs">
+      <DependentUpon>201809071621417_Add5Tasks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ClassificationRepository.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
     <Compile Include="Repositories\ToDoTaskRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201809071621417_Add5Tasks.resx">
+      <DependentUpon>201809071621417_Add5Tasks.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
