@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ToDoList.DAL.Entities
 {
-    class ClientProfile
+    public class ClientProfile
     {
         [Key]
         [ForeignKey("ApplicationUser")]
