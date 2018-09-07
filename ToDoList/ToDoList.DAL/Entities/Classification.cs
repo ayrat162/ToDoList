@@ -1,4 +1,4 @@
-﻿namespace ToDoList.Web.Models
+﻿namespace ToDoList.DAL.Entities
 {
     public class Classification
     {

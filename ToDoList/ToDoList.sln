@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender", "EmailSender\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoList.Web", "ToDoList.Web\ToDoList.Web.csproj", "{B11843D2-CFD0-4F01-B2A3-BE4489567774}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoList.DAL", "ToDoList.DAL\ToDoList.DAL.csproj", "{4D8DE5A8-0C2A-41D8-85B5-3A0687D708D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B11843D2-CFD0-4F01-B2A3-BE4489567774}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B11843D2-CFD0-4F01-B2A3-BE4489567774}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B11843D2-CFD0-4F01-B2A3-BE4489567774}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D8DE5A8-0C2A-41D8-85B5-3A0687D708D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D8DE5A8-0C2A-41D8-85B5-3A0687D708D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D8DE5A8-0C2A-41D8-85B5-3A0687D708D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D8DE5A8-0C2A-41D8-85B5-3A0687D708D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

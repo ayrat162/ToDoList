@@ -12,8 +12,5 @@ namespace ToDoList.Web.ViewModels
         public int Id { get; set; }
         public string Description { get; set; }
         public DateTime DueDateTime { get; set; }
-        public string Status { get; set; }
-        public Classification Classification { get; set; }
-        public ToDoTask ConnectedToDoTask { get; set; }
     }
 }

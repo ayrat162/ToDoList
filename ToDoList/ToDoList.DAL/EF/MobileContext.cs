@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
+using ToDoList.DAL.Entities;
 
 namespace ToDoList.Web.Models
 {
@@ -10,6 +8,16 @@ namespace ToDoList.Web.Models
     {
         public DbSet<ToDoTask> ToDoTasks { get; set; }
         public DbSet<Classification> Classifications { get; set; }
+
+        static ToDoListContext()
+        {
+            Database.SetInitializer<ToDoListContext>(new ToDoListDbInitializer());
+        }
+
+        public ToDoListContext(string connectionString)
+            : base(connectionString)
+        {
+        }
     }
 
     public class ToDoListDbInitializer : DropCreateDatabaseAlways<ToDoListContext>
