@@ -62,6 +62,8 @@
     <Compile Include="Entities\ToDoTask\Classification.cs" />
     <Compile Include="Entities\Identity\ClientProfile.cs" />
     <Compile Include="Entities\ToDoTask\ToDoTask.cs" />
+    <Compile Include="Identity\ApplicationRoleManager.cs" />
+    <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201809071621417_Add5Tasks.cs" />
@@ -84,7 +86,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Identity\" />
     <Folder Include="Repositories\Identity\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

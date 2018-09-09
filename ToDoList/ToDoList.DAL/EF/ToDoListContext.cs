@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System;
 using System.Data.Entity;
 using ToDoList.DAL.Entities;
 
@@ -7,8 +6,10 @@ namespace ToDoList.DAL.EF
 {
     public class ToDoListContext: IdentityDbContext<ApplicationUser>
     {
+        public ToDoListContext(string connectionString) : base(connectionString) { }
         public DbSet<ToDoTask> ToDoTasks { get; set; }
         public DbSet<Classification> Classifications { get; set; }
+        public DbSet<ClientProfile> ClientProfiles { get; set; }
         private void FixEfProviderServicesProblem()
         {
             // The Entity Framework provider type 'System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer'
