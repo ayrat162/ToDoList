@@ -20,7 +20,6 @@ namespace ToDoList.Core.Services
         {
             Database = unitOfWork;
         }
-
         public async Task<OperationDetails> Create(UserDTO userDto)
         {
             ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);

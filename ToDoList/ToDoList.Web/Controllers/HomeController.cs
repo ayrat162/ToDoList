@@ -2,23 +2,27 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
 using ToDoList.Core.DTO;
 using ToDoList.Core.Interfaces;
+using ToDoList.Core.Services;
 using ToDoList.Web.ViewModels;
 
 namespace ToDoList.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IToDoTaskService toDoTaskService;
-        public HomeController(IToDoTaskService service)
+        private ToDoTaskService toDoTaskService;
+        public HomeController(ToDoTaskService service)
         {
             toDoTaskService = service;
         }
 
         public ActionResult Index()
         {
-            var toDoTaskDtos = toDoTaskService.GetToDoTasks();
+            User.Identity.
+            var currentUserId = User.Identity.GetUserId();
+            var toDoTaskDtos = toDoTaskService.GetToDoTasksFor(currentUserId);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToDoTaskDTO, ToDoTaskViewModel>()).CreateMapper();
             var toDoTasks = mapper.Map<IEnumerable<ToDoTaskDTO>, IEnumerable<ToDoTaskViewModel>>(toDoTaskDtos);
             return View(toDoTasks);

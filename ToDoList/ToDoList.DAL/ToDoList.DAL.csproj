@@ -75,6 +75,14 @@
     <Compile Include="Migrations\201809091848566_AddUsersAndRoles.Designer.cs">
       <DependentUpon>201809091848566_AddUsersAndRoles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809100911308_AddUserToTask.cs" />
+    <Compile Include="Migrations\201809100911308_AddUserToTask.Designer.cs">
+      <DependentUpon>201809100911308_AddUserToTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809100918416_UserForTaskNotRequired.cs" />
+    <Compile Include="Migrations\201809100918416_UserForTaskNotRequired.Designer.cs">
+      <DependentUpon>201809100918416_UserForTaskNotRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Identity\ClientManager.cs" />
@@ -88,6 +96,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809091848566_AddUsersAndRoles.resx">
       <DependentUpon>201809091848566_AddUsersAndRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809100911308_AddUserToTask.resx">
+      <DependentUpon>201809100911308_AddUserToTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809100918416_UserForTaskNotRequired.resx">
+      <DependentUpon>201809100918416_UserForTaskNotRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

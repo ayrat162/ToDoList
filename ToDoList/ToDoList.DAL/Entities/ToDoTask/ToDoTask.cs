@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ToDoList.DAL.Entities
 {
@@ -17,7 +18,8 @@ namespace ToDoList.DAL.Entities
 
         //public byte[] Image { get; set; }
 
-        //public ApplicationUser User { get; set; }
-        //public string UserId { get; set; }
+        //[Required]
+        public ApplicationUser User { get; set; }
+        public string UserId { get; set; }
     }
 }

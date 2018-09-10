@@ -31,15 +31,21 @@ namespace ToDoList.Core.Services
         public ToDoTaskDTO GetToDoTask(int? id)
         {
             if (id == null)
-                throw new ValidationException("No ID. ID is required.", "");
+                throw new ValidationException("No ID is found. ID is required.", "");
             var toDoTask = Database.ToDoTasks.Get(id.Value);
             if (toDoTask == null)
-                throw new ValidationException("ID wasn't found", "");
+                throw new ValidationException("Task with this ID can't be found", "");
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToDoTask, ToDoTaskDTO>()).CreateMapper();
 
             return mapper.Map<ToDoTask, ToDoTaskDTO>(toDoTask);
         }
 
+        public List<ToDoTaskDTO> GetToDoTasksFor(string id)
+        {
+            var listOfTaskForUser = Database.ToDoTasks.Find(t => t.UserId == id);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToDoTask, ToDoTaskDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<ToDoTask>, List<ToDoTaskDTO>>(listOfTaskForUser);
+        }
         public void Dispose()
         {
             Database.Dispose();
