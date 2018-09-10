@@ -6,7 +6,7 @@ namespace ToDoList.DAL.EF
 {
     public class ToDoListContext: IdentityDbContext<ApplicationUser>
     {
-        public ToDoListContext(string connectionString) : base(connectionString) { }
+        public ToDoListContext() : base() { }
         public DbSet<ToDoTask> ToDoTasks { get; set; }
         public DbSet<Classification> Classifications { get; set; }
         public DbSet<ClientProfile> ClientProfiles { get; set; }

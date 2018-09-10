@@ -64,14 +64,20 @@
     <Compile Include="Entities\ToDoTask\ToDoTask.cs" />
     <Compile Include="Identity\ApplicationRoleManager.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
+    <Compile Include="Interfaces\IClientManager.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201809071621417_Add5Tasks.cs" />
     <Compile Include="Migrations\201809071621417_Add5Tasks.Designer.cs">
       <DependentUpon>201809071621417_Add5Tasks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809091848566_AddUsersAndRoles.cs" />
+    <Compile Include="Migrations\201809091848566_AddUsersAndRoles.Designer.cs">
+      <DependentUpon>201809091848566_AddUsersAndRoles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Identity\ClientManager.cs" />
     <Compile Include="Repositories\ToDoList\ClassificationRepository.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
     <Compile Include="Repositories\ToDoList\ToDoTaskRepository.cs" />
@@ -80,14 +86,15 @@
     <EmbeddedResource Include="Migrations\201809071621417_Add5Tasks.resx">
       <DependentUpon>201809071621417_Add5Tasks.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809091848566_AddUsersAndRoles.resx">
+      <DependentUpon>201809091848566_AddUsersAndRoles.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\Identity\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

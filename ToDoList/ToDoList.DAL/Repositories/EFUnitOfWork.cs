@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.Threading.Tasks;
 using ToDoList.DAL.EF;
 using ToDoList.DAL.Entities;
+using ToDoList.DAL.Identity;
 using ToDoList.DAL.Interfaces;
+using ToDoList.DAL.Repositories.Identity;
 
 namespace ToDoList.DAL.Repositories
 {
@@ -10,10 +14,16 @@ namespace ToDoList.DAL.Repositories
         private ToDoListContext db;
         private ToDoTaskRepository toDoTaskRepository;
         private ClassificationRepository classificationRepository;
+        private ApplicationUserManager userManager;
+        private ApplicationRoleManager roleManager;
+        private IClientManager clientManager;
 
         public EFUnitOfWork()
         {
             db = new ToDoListContext();
+            userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
+            roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
+            clientManager = new ClientManager(db);
         }
 
         public IRepository<ToDoTask> ToDoTasks
@@ -34,6 +44,25 @@ namespace ToDoList.DAL.Repositories
                     classificationRepository = new ClassificationRepository(db);
                 return classificationRepository;
             }
+        }
+        public ApplicationUserManager UserManager
+        {
+            get { return userManager; }
+        }
+
+        public IClientManager ClientManager
+        {
+            get { return clientManager; }
+        }
+
+        public ApplicationRoleManager RoleManager
+        {
+            get { return roleManager; }
+        }
+
+        public async Task SaveAsync()
+        {
+            await db.SaveChangesAsync();
         }
 
         public void Save()

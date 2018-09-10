@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using ToDoList.DAL.Entities;
+using ToDoList.DAL.Identity;
 
 namespace ToDoList.DAL.Interfaces
 {
@@ -7,6 +9,10 @@ namespace ToDoList.DAL.Interfaces
     {
         IRepository<ToDoTask> ToDoTasks { get; }
         IRepository<Classification> Classifications { get; }
+        ApplicationUserManager UserManager { get; }
+        IClientManager ClientManager { get; }
+        ApplicationRoleManager RoleManager { get; }
         void Save();
+        Task SaveAsync();
     }
 }
