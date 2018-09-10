@@ -39,7 +39,6 @@
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -57,12 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\ClassificationDTO.cs" />
+    <Compile Include="DTO\PictureDTO.cs" />
     <Compile Include="DTO\ToDoTaskDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="Helpers\Converter.cs" />
     <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
-    <Compile Include="Interfaces\ICreatorService.cs" />
     <Compile Include="Interfaces\IToDoTaskService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

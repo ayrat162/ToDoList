@@ -9,6 +9,7 @@ namespace ToDoList.DAL.Interfaces
     {
         IRepository<ToDoTask> ToDoTasks { get; }
         IRepository<Classification> Classifications { get; }
+        IRepository<Picture> Pictures { get;  }
         ApplicationUserManager UserManager { get; }
         IClientManager ClientManager { get; }
         ApplicationRoleManager RoleManager { get; }

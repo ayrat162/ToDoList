@@ -9,6 +9,7 @@ namespace ToDoList.DAL.EF
         public ToDoListContext() : base() { }
         public DbSet<ToDoTask> ToDoTasks { get; set; }
         public DbSet<Classification> Classifications { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
         public DbSet<ClientProfile> ClientProfiles { get; set; }
         private void FixEfProviderServicesProblem()
         {

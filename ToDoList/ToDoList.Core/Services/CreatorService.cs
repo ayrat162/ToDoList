@@ -8,7 +8,7 @@ using ToDoList.DAL.Repositories;
 
 namespace ToDoList.Core.Services
 {
-    public class CreatorService : ICreatorService
+    public class CreatorService
     {
         public IUserService CreateUserService()
         {

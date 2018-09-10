@@ -15,7 +15,7 @@ namespace ToDoList.Web.App_Start
 {
     public class Startup
     {
-        ICreatorService serviceCreator = new CreatorService();
+        CreatorService creatorService = new CreatorService();
         public void Configuration(IAppBuilder app)
         {
             app.CreatePerOwinContext<IUserService>(CreateUserService);
@@ -28,7 +28,7 @@ namespace ToDoList.Web.App_Start
 
         private IUserService CreateUserService()
         {
-            return serviceCreator.CreateUserService();
+            return creatorService.CreateUserService();
         }
     }
 }

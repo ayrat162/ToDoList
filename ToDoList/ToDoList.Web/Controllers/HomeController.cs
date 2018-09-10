@@ -1,15 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Security.Principal;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using ToDoList.Core.DTO;
 using ToDoList.Core.Interfaces;
 using ToDoList.Core.Services;
-using ToDoList.Web.ViewModels;
+using ToDoList.Web.Helpers;
 
 namespace ToDoList.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private ToDoTaskService toDoTaskService;
@@ -21,42 +24,22 @@ namespace ToDoList.Web.Controllers
         public ActionResult Index()
         {
             var currentUserId = User.Identity.GetUserId();
-            var toDoTaskDtos = toDoTaskService.GetToDoTasksFor(currentUserId);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToDoTaskDTO, ToDoTaskViewModel>()).CreateMapper();
-            var toDoTasks = mapper.Map<IEnumerable<ToDoTaskDTO>, IEnumerable<ToDoTaskViewModel>>(toDoTaskDtos);
+            IEnumerable<ToDoTaskDTO> toDoTaskDtos;
+            if (Check.IsAdmin(User))
+                toDoTaskDtos = toDoTaskService.GetToDoTasks();
+            else
+                toDoTaskDtos = toDoTaskService.GetToDoTasksOf(currentUserId);
+            var toDoTasks = Converter.Dto2ViewModel(toDoTaskDtos);
             return View(toDoTasks);
         }
 
-        public ActionResult ViewTask(int? id)
+        [Route("Tasks/{id:regex(\\d):range(0, 1000000)}")]
+        public ActionResult View(int id)
         {
-            if (id == null)
-                return HttpNotFound();
             var toDoTaskDto = toDoTaskService.GetToDoTask(id);
-            if (toDoTaskDto == null)
-                return HttpNotFound();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToDoTaskDTO, ToDoTaskViewModel>()).CreateMapper();
-            var toDoTaskViewModel = mapper.Map<ToDoTaskDTO, ToDoTaskViewModel>(toDoTaskDto);
-            return View(toDoTaskViewModel);
-        }
-
-
-
-
-
-
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            if (toDoTaskDto == null) return HttpNotFound();
+            var toDoTask = Converter.Dto2ViewModel(toDoTaskDto);
+            return View(toDoTask);
         }
     }
 }

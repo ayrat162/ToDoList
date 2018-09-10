@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using ToDoList.Web.Helpers
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -21,8 +22,12 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (Check.IsAdmin(User))
+                    {
+                    <li>@Html.ActionLink("Home", "Admin", "Home")</li>
+                    }
+                    <li>@Html.ActionLink("About", "About", "Pages")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Pages")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (!User.Identity.IsAuthenticated)
@@ -33,12 +38,11 @@
                     else
                     {
                         <li>
-                            <a>Привет @User.Identity.Name</a>
+                            <a>Hello, @User.Identity.Name</a>
                         </li>
                         <li>@Html.ActionLink("Log out", "Logout", "Account")</li>
                     }
-
-                </ul>s
+                </ul>
             </div>
         </div>
     </div>

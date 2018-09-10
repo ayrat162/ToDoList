@@ -59,9 +59,10 @@
     <Compile Include="EF\ToDoListContext.cs" />
     <Compile Include="Entities\Identity\ApplicationRole.cs" />
     <Compile Include="Entities\Identity\ApplicationUser.cs" />
-    <Compile Include="Entities\ToDoTask\Classification.cs" />
+    <Compile Include="Entities\ToDoTasks\Classification.cs" />
     <Compile Include="Entities\Identity\ClientProfile.cs" />
-    <Compile Include="Entities\ToDoTask\ToDoTask.cs" />
+    <Compile Include="Entities\ToDoTasks\Picture.cs" />
+    <Compile Include="Entities\ToDoTasks\ToDoTask.cs" />
     <Compile Include="Identity\ApplicationRoleManager.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Interfaces\IClientManager.cs" />
@@ -83,11 +84,20 @@
     <Compile Include="Migrations\201809100918416_UserForTaskNotRequired.Designer.cs">
       <DependentUpon>201809100918416_UserForTaskNotRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809101826343_AddedClassificationConnectedToDoTaskPictureToTask.cs" />
+    <Compile Include="Migrations\201809101826343_AddedClassificationConnectedToDoTaskPictureToTask.Designer.cs">
+      <DependentUpon>201809101826343_AddedClassificationConnectedToDoTaskPictureToTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809102006304_AddedPicturesDbSet.cs" />
+    <Compile Include="Migrations\201809102006304_AddedPicturesDbSet.Designer.cs">
+      <DependentUpon>201809102006304_AddedPicturesDbSet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Identity\ClientManager.cs" />
     <Compile Include="Repositories\ToDoList\ClassificationRepository.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
+    <Compile Include="Repositories\ToDoList\PictureRepository.cs" />
     <Compile Include="Repositories\ToDoList\ToDoTaskRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +112,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809100918416_UserForTaskNotRequired.resx">
       <DependentUpon>201809100918416_UserForTaskNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809101826343_AddedClassificationConnectedToDoTaskPictureToTask.resx">
+      <DependentUpon>201809101826343_AddedClassificationConnectedToDoTaskPictureToTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809102006304_AddedPicturesDbSet.resx">
+      <DependentUpon>201809102006304_AddedPicturesDbSet.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
