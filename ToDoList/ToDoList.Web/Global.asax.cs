@@ -26,6 +26,7 @@ namespace ToDoList.Web
             NinjectModule serviceModule = new ServiceModule("DefaultConnection");
             var kernel = new StandardKernel(toDoTaskModule, serviceModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+            kernel.Unbind<ModelValidatorProvider>();
         }
     }
 }

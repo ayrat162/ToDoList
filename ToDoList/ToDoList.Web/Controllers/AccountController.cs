@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using ToDoList.Core.DTO;
 using ToDoList.Core.Infrastructure;
 using ToDoList.Core.Interfaces;
+using ToDoList.Web.Models;
 
 namespace ToDoList.Web.Controllers
 {

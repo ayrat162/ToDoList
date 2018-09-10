@@ -9,6 +9,8 @@ using System.Web;
 using ToDoList.Core.Interfaces;
 using ToDoList.Core.Services;
 
+[assembly: OwinStartup(typeof(ToDoList.Web.App_Start.Startup))]
+
 namespace ToDoList.Web.App_Start
 {
     public class Startup
