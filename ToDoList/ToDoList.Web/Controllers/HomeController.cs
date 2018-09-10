@@ -20,7 +20,6 @@ namespace ToDoList.Web.Controllers
 
         public ActionResult Index()
         {
-            User.Identity.
             var currentUserId = User.Identity.GetUserId();
             var toDoTaskDtos = toDoTaskService.GetToDoTasksFor(currentUserId);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToDoTaskDTO, ToDoTaskViewModel>()).CreateMapper();
