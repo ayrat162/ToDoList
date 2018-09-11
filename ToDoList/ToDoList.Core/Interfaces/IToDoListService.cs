@@ -9,5 +9,7 @@ namespace ToDoList.Core.Interfaces
         ToDoTaskDTO GetToDoTask(int? id);
         IEnumerable<ToDoTaskDTO> GetToDoTasks();
         void Dispose();
+        void UpdateToDoTask(ToDoTaskDTO toDoTaskDto);
+        void DeleteToDoTask(int? id);
     }
 }

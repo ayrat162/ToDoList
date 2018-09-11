@@ -7,6 +7,7 @@ using ToDoList.Core.Infrastructure;
 using ToDoList.Core.Interfaces;
 using ToDoList.DAL.Entities;
 using ToDoList.DAL.Interfaces;
+using ToDoList.DAL.Repositories;
 
 namespace ToDoList.Core.Services
 {
@@ -19,6 +20,12 @@ namespace ToDoList.Core.Services
         {
             Database = unitOfWork;
         }
+
+        public ToDoListService()
+        {
+            Database= new EFUnitOfWork();
+        }
+
 
         public int AddToDoTask(ToDoTaskDTO toDoTaskDto)
         {
@@ -101,6 +108,20 @@ namespace ToDoList.Core.Services
             Database.Dispose();
         }
 
+        public void DeleteToDoTask(int? id)
+        {
+            if (id != null)
+            {
+                Database.ToDoTasks.Delete(id.Value);
+            }
+        }
+        public void DeleteClassification(int? id)
+        {
+            if (id != null)
+            {
+                Database.Classifications.Delete(id.Value);
+            }
+        }
         public void DeletePicture(int? id)
         {
             if (id != null)

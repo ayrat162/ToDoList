@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using ToDoList.Core.DTO;
+using ToDoList.Core.Interfaces;
 using ToDoList.Core.Services;
 using ToDoList.Web.Helpers;
 using ToDoList.Web.ViewModels;

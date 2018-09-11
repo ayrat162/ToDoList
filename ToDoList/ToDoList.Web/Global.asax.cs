@@ -16,6 +16,7 @@ namespace ToDoList.Web
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
@@ -25,6 +26,9 @@ namespace ToDoList.Web
             var kernel = new StandardKernel(toDoTaskModule, serviceModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
             kernel.Unbind<ModelValidatorProvider>();
+
+            AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configuration.EnsureInitialized();
         }
     }
 }
