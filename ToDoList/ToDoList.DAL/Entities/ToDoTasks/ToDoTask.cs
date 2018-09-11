@@ -14,12 +14,11 @@ namespace ToDoList.DAL.Entities
         public int? ClassificationId { get; set; }
 
         public ToDoTask ConnectedToDoTask { get; set; }
-        public int? ConnectedtoDoTaskId { get; set; }
+        public int? ConnectedToDoTaskId { get; set; }
 
         public Picture Picture { get; set; }
         public int? PictureId { get; set; }
 
-        [Required]
         public ApplicationUser User { get; set; }
         public string UserId { get; set; }
     }

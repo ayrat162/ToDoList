@@ -5,7 +5,7 @@ namespace ToDoList.Core.Interfaces
 {
     public interface IToDoTaskService
     {
-        void AddToDoTask(ToDoTaskDTO toDoTaskDto);
+        int AddToDoTask(ToDoTaskDTO toDoTaskDto);
         ToDoTaskDTO GetToDoTask(int? id);
         IEnumerable<ToDoTaskDTO> GetToDoTasks();
         void Dispose();

@@ -23,9 +23,9 @@ namespace ToDoList.DAL.Repositories
         {
             return db.Classifications.Find(id);
         }
-        public void Create(Classification Classification)
+        public Classification Create(Classification Classification)
         {
-            db.Classifications.Add(Classification);
+            return db.Classifications.Add(Classification);
         }
         public void Update(Classification Classification)
         {

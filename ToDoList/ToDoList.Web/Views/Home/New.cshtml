@@ -1,0 +1,38 @@
+﻿@model ToDoList.Web.ViewModels.NewTaskViewModel
+@{
+    ViewBag.Title = "New ToDo Task";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Task</h2>
+
+@using (Html.BeginForm("Save", "Home", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.ToDoTaskDto.Description)
+        @Html.TextBoxFor(m => m.ToDoTaskDto.Description, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.ToDoTaskDto.Description)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ToDoTaskDto.DueDateTime)
+        @Html.TextBoxFor(m => m.ToDoTaskDto.DueDateTime, "{0:d MMM yyyy H:mm:ss}", new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.ToDoTaskDto.DueDateTime)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ToDoTaskDto.Status)
+        @Html.TextBoxFor(m => m.ToDoTaskDto.Status, new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.ToDoTaskDto.Status)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ToDoTaskDto.ClassificationId)
+        @Html.DropDownListFor(m => m.ToDoTaskDto.ClassificationId, new SelectList(Model.Classifications, "Id", "Name"), "", new {@class = "form-control"})
+    </div>
+    <div class="form-group">
+        <div>Upload File</div>
+        <div>
+            <input type="file" name="uploadImage"/>
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.ToDoTaskDto.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}

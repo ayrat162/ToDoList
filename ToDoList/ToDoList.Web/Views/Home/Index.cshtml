@@ -1,13 +1,13 @@
-﻿@using ToDoList.Web.Models
+﻿@using ToDoList.Core.DTO
 @using ToDoList.Web.ViewModels
-@model IEnumerable<ToDoList.Web.ViewModels.ToDoTaskViewModel>
+@model ViewAllTasksViewModel
 @{
     ViewBag.Title = "List of the Tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Tasks List:</h2>
+<h2>Tasks List</h2>
 <p>
-    <strong>@Html.ActionLink("Create a New Task", "New", "Tasks")</strong>
+    <strong>@Html.ActionLink("Create a New Task", "New", "Home")</strong>
 </p>
 <table class="table table-hover table-striped">
     <thead>
@@ -27,17 +27,23 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (ToDoTaskViewModel task in Model)
+        @foreach (ToDoTaskDTO task in Model.ToDoTaskDtos)
         {
             <tr>
                 <td>
-                    @Html.ActionLink(@task.Description, "Info", "Tasks", new { id = @task.Id }, null)
+                    @Html.ActionLink(@task.Description, "View", "Home", new { id = @task.Id }, null)
                 </td>
                 <td>
                     @task.DueDateTime
                 </td>
                 <th>
-                    @task.Classification
+                    @if (@Model.Classifications.SingleOrDefault(c => c.Id == task.ClassificationId) != null)
+                    {
+                        @Model.Classifications.SingleOrDefault(c => c.Id == task.ClassificationId).Name
+                    }
+                    else { 
+                        @:N/A
+                    }
                 </th>
                 <th>
                     @task.Status

@@ -19,20 +19,20 @@ namespace ToDoList.Core.Services
             Database = unitOfWork;
         }
 
-        public void AddToDoTask(ToDoTaskDTO toDoTaskDto)
+        public int AddToDoTask(ToDoTaskDTO toDoTaskDto)
         {
-            var toDoTask = Converter.Convert2DAL(toDoTaskDto);
-            Database.ToDoTasks.Create(toDoTask);
+            var toDoTask = Converter.Convert2Dal(toDoTaskDto);
+            return Database.ToDoTasks.Create(toDoTask).Id;
         }
-        public void AddClassification(ClassificationDTO classificationDto)
+        public int AddClassification(ClassificationDTO classificationDto)
         {
-            var classification = Converter.Convert2DAL(classificationDto);
-            Database.Classifications.Create(classification);
+            var classification = Converter.Convert2Dal(classificationDto);
+            return Database.Classifications.Create(classification).Id;
         }
-        public void AddPicture(PictureDTO pictureDto)
+        public int AddPicture(PictureDTO pictureDto)
         {
-            var picture = Converter.Convert2DAL(pictureDto);
-            Database.Pictures.Create(picture);
+            var picture = Converter.Convert2Dal(pictureDto);
+            return Database.Pictures.Create(picture).Id;
         }
 
         public IEnumerable<ToDoTaskDTO> GetToDoTasks()
@@ -68,11 +68,9 @@ namespace ToDoList.Core.Services
         }
         public PictureDTO GetPicture(int? id)
         {
-            if (id == null)
-                throw new ValidationException("No ID is found. ID is required.", "");
+            if (id == null) return null;
             var picture = Database.Pictures.Get(id.Value);
-            if (picture == null)
-                throw new ValidationException("Task with this ID can't be found", "");
+            if (picture == null) return null;
             return Converter.Convert2Dto(picture);
         }
 
@@ -81,15 +79,39 @@ namespace ToDoList.Core.Services
             var listOfTaskForUser = Database.ToDoTasks.Find(t => t.UserId == id);
             return Converter.Convert2Dto(listOfTaskForUser);
         }
-        public IEnumerable<ClassificationDTO> GetClassificationsOf(string id)
+        //public IEnumerable<ClassificationDTO> GetClassificationsOf(string id)
+        //{
+        //    var classifications = Database.Classifications.Find(t => t.UserId == id);
+        //    return Converter.Convert2Dto(classifications);
+        //}
+        //public IEnumerable<PictureDTO> GetPicturesOf(string id)
+        //{
+        //    var pictures = Database.Pictures.Find(t => t.UserId == id);
+        //    return Converter.Convert2Dto(pictures);
+        //}
+
+        public void UpdateClassification(ClassificationDTO classificationDto)
         {
-            var classifications = Database.Classifications.Find(t => t.UserId == id);
-            return Converter.Convert2Dto(classifications);
+            var classification = Database.Classifications.Get(classificationDto.Id);
+            Mapper.Map(classificationDto,classification);
+            Database.Classifications.Update(classification);
+            Database.Save();
         }
-        public IEnumerable<PictureDTO> GetPicturesOf(string id)
+
+        public void UpdateToDoTask(ToDoTaskDTO toDoTaskDto)
         {
-            var pictures = Database.Pictures.Find(t => t.UserId == id);
-            return Converter.Convert2Dto(pictures);
+            var toDoTask = Database.ToDoTasks.Get(toDoTaskDto.Id);
+            Mapper.Map(toDoTaskDto, toDoTask);
+            Database.ToDoTasks.Update(toDoTask);
+            Database.Save();
+        }
+
+        public void UpdatePicture(PictureDTO pictureDto)
+        {
+            var picture = Database.Pictures.Get(pictureDto.Id);
+            Mapper.Map(pictureDto, picture);
+            Database.Pictures.Update(picture);
+            Database.Save();
         }
 
         public void Dispose()

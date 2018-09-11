@@ -23,9 +23,9 @@ namespace ToDoList.DAL.Repositories
         {
             return db.Pictures.Find(id);
         }
-        public void Create(Picture picture)
+        public Picture Create(Picture picture)
         {
-            db.Pictures.Add(picture);
+            return db.Pictures.Add(picture);
         }
         public void Update(Picture picture)
         {

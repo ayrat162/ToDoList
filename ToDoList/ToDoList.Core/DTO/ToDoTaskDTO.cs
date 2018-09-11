@@ -9,8 +9,8 @@ namespace ToDoList.Core.DTO
         public DateTime DueDateTime { get; set; }
         public string Status { get; set; }
         public int? ClassificationId { get; set; }
-        public int? ConnectedtoDoTaskId { get; set; }
-        public int? ImageId { get; set; }
+        public int? ConnectedToDoTaskId { get; set; }
+        public int? PictureId { get; set; }
         public string UserId { get; set; }
     }
 }

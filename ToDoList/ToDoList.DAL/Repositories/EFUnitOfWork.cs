@@ -14,6 +14,7 @@ namespace ToDoList.DAL.Repositories
         private ToDoListContext db;
         private ToDoTaskRepository toDoTaskRepository;
         private ClassificationRepository classificationRepository;
+        private PictureRepository pictureRepository;
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
         private IClientManager clientManager;
@@ -35,7 +36,6 @@ namespace ToDoList.DAL.Repositories
                 return toDoTaskRepository;
             }
         }
-
         public IRepository<Classification> Classifications
         {
             get
@@ -43,6 +43,15 @@ namespace ToDoList.DAL.Repositories
                 if (classificationRepository == null)
                     classificationRepository = new ClassificationRepository(db);
                 return classificationRepository;
+            }
+        }
+        public IRepository<Picture> Pictures
+        {
+            get
+            {
+                if (pictureRepository == null)
+                    pictureRepository = new PictureRepository(db);
+                return pictureRepository;
             }
         }
         public ApplicationUserManager UserManager
