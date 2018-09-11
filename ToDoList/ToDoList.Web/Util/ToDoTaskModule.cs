@@ -8,7 +8,7 @@ namespace ToDoList.Web.Util
     {
         public override void Load()
         {
-            Bind<IToDoTaskService>().To<ToDoTaskService>();
+            Bind<IToDoListService>().To<ToDoListService>();
         }
     }
 }

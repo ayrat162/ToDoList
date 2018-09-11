@@ -63,11 +63,11 @@
     <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
-    <Compile Include="Interfaces\IToDoTaskService.cs" />
+    <Compile Include="Interfaces\IToDoListService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CreatorService.cs" />
-    <Compile Include="Services\ToDoTaskService.cs" />
+    <Compile Include="Services\ToDoListService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

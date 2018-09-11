@@ -3,7 +3,7 @@ using ToDoList.Core.DTO;
 
 namespace ToDoList.Core.Interfaces
 {
-    public interface IToDoTaskService
+    public interface IToDoListService
     {
         int AddToDoTask(ToDoTaskDTO toDoTaskDto);
         ToDoTaskDTO GetToDoTask(int? id);
