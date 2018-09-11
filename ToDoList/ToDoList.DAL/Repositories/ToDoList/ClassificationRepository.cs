@@ -23,13 +23,16 @@ namespace ToDoList.DAL.Repositories
         {
             return db.Classifications.Find(id);
         }
-        public Classification Create(Classification Classification)
+        public Classification Create(Classification classification)
         {
-            return db.Classifications.Add(Classification);
+            var newClassification = db.Classifications.Add(classification);
+            db.SaveChanges();
+            return newClassification;
         }
         public void Update(Classification Classification)
         {
             db.Entry(Classification).State = EntityState.Modified;
+            db.SaveChanges();
         }
         public IEnumerable<Classification> Find(Func<Classification, Boolean> predicate)
         {
@@ -40,6 +43,7 @@ namespace ToDoList.DAL.Repositories
             var Classification = db.Classifications.Find(id);
             if (Classification != null)
                 db.Classifications.Remove(Classification);
+            db.SaveChanges();
         }
     }
 }

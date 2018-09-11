@@ -35,6 +35,7 @@ namespace ToDoList.DAL.Repositories
         public void Update(ToDoTask toDoTask)
         {
             db.Entry(toDoTask).State = EntityState.Modified;
+            db.SaveChanges();
         }
         public IEnumerable<ToDoTask> Find(Func<ToDoTask, Boolean> predicate)
         {
@@ -45,6 +46,7 @@ namespace ToDoList.DAL.Repositories
             var toDoTask = db.ToDoTasks.Find(id);
             if (toDoTask != null)
                 db.ToDoTasks.Remove(toDoTask);
+            db.SaveChanges();
         }
     }
 }

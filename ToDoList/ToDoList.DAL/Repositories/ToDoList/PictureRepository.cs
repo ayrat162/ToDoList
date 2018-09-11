@@ -25,11 +25,14 @@ namespace ToDoList.DAL.Repositories
         }
         public Picture Create(Picture picture)
         {
-            return db.Pictures.Add(picture);
+            var newPicture = db.Pictures.Add(picture);
+            db.SaveChanges();
+            return newPicture;
         }
         public void Update(Picture picture)
         {
             db.Entry(picture).State = EntityState.Modified;
+            db.SaveChanges();
         }
         public IEnumerable<Picture> Find(Func<Picture, Boolean> predicate)
         {
@@ -40,6 +43,7 @@ namespace ToDoList.DAL.Repositories
             var picture = db.Pictures.Find(id);
             if (picture != null)
                 db.Pictures.Remove(picture);
+            db.SaveChanges();
         }
     }
 }
