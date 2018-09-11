@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using ToDoList.Core.DTO;
@@ -11,7 +12,7 @@ using ToDoList.Web.ViewModels;
 
 namespace ToDoList.Web.Controllers
 {
-    [Authorize]
+    [System.Web.Mvc.Authorize]
     public class HomeController : Controller
     {
         private ToDoListService toDoListService;
@@ -36,7 +37,7 @@ namespace ToDoList.Web.Controllers
             return View(toDoTasks);
         }
 
-        [Route("Tasks/{id:regex(\\d):range(0, 1000000)}")]
+        [System.Web.Mvc.Route("Tasks/{id:regex(\\d):range(0, 1000000)}")]
         public ActionResult View(int id)
         {
             var currentUserId = User.Identity.GetUserId();
@@ -44,10 +45,7 @@ namespace ToDoList.Web.Controllers
             if (toDoTaskDto == null)
                 return HttpNotFound();
             if (!Check.IsAdmin(User) && toDoTaskDto.UserId != currentUserId)
-            {
-                ViewBag.Message = "Access denied. You're not allowed to open this ToDoTask";
-                return View("Error");
-            }
+                throw new HttpResponseException(HttpStatusCode.Forbidden);
             TaskViewModel taskViewModel = new TaskViewModel
             {
                 ToDoTaskDto = toDoTaskDto,
@@ -57,7 +55,7 @@ namespace ToDoList.Web.Controllers
             return View(taskViewModel);
         }
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public ActionResult Save(TaskViewModel taskViewModel, HttpPostedFileBase uploadImage)
         {
             var picture = new PictureDTO();
@@ -76,6 +74,9 @@ namespace ToDoList.Web.Controllers
             }
             else // uploading edited item data
             {
+                var toDoTaskDto = toDoListService.GetToDoTask(taskViewModel.ToDoTaskDto.Id);
+                if (!Check.IsAdmin(User) && toDoTaskDto.UserId != currentUserId)
+                    throw new HttpResponseException(HttpStatusCode.Forbidden);
                 if (picture.Image != null)
                 {
                     var pictureId = toDoListService.AddPicture(picture);
@@ -87,7 +88,7 @@ namespace ToDoList.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
         
-        [Route("Tasks/New")]
+        [System.Web.Mvc.Route("Tasks/New")]
         public ActionResult New()
         {
             var taskViewModel = new TaskViewModel
@@ -97,7 +98,7 @@ namespace ToDoList.Web.Controllers
             return View(taskViewModel);
         }
 
-        [Route("Tasks/Edit/{id:regex(\\d):range(0, 1000000)}")]
+        [System.Web.Mvc.Route("Tasks/Edit/{id:regex(\\d):range(0, 1000000)}")]
         public ActionResult Edit(int id)
         {
             var currentUserId = User.Identity.GetUserId();
@@ -105,10 +106,7 @@ namespace ToDoList.Web.Controllers
             if (toDoTaskDto == null)
                 return HttpNotFound();
             if (!Check.IsAdmin(User) && toDoTaskDto.UserId != currentUserId)
-            {
-                ViewBag.Message = "Access denied. You're not allowed to open this ToDoTask";
-                return View("Error");
-            }
+                throw new HttpResponseException(HttpStatusCode.Forbidden);
             var taskViewModel = new TaskViewModel
             {
                 ToDoTaskDto = toDoTaskDto,

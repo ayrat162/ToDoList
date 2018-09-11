@@ -6,6 +6,8 @@ using Ninject.Modules;
 using Ninject.Web.Mvc;
 using ToDoList.Core.Infrastructure;
 using ToDoList.Web.Util;
+using System.Web.Http;
+using System.Web.Routing;
 
 namespace ToDoList.Web
 {
