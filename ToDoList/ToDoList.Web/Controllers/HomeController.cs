@@ -45,20 +45,20 @@ namespace ToDoList.Web.Controllers
                 return HttpNotFound();
             if (!Check.IsAdmin(User) && toDoTaskDto.UserId != currentUserId)
             {
-                ViewBag.Message = "Access denied. You're not allowed to view this To Do Task";
+                ViewBag.Message = "Access denied. You're not allowed to open this ToDoTask";
                 return View("Error");
             }
-            ViewTaskViewModel viewModel = new ViewTaskViewModel
+            TaskViewModel taskViewModel = new TaskViewModel
             {
                 ToDoTaskDto = toDoTaskDto,
                 Classifications = toDoListService.GetClassifications(),
                 PictureDto = toDoListService.GetPicture(toDoTaskDto.PictureId)
             };
-            return View(viewModel);
+            return View(taskViewModel);
         }
 
         [HttpPost]
-        public ActionResult Save(EditTaskViewModel taskViewModel, HttpPostedFileBase uploadImage)
+        public ActionResult Save(TaskViewModel taskViewModel, HttpPostedFileBase uploadImage)
         {
             var picture = new PictureDTO();
             if(uploadImage!=null)
@@ -79,6 +79,7 @@ namespace ToDoList.Web.Controllers
                 if (picture.Image != null)
                 {
                     var pictureId = toDoListService.AddPicture(picture);
+                    toDoListService.DeletePicture(taskViewModel.ToDoTaskDto.PictureId);
                     taskViewModel.ToDoTaskDto.PictureId = pictureId;
                 }
                 toDoListService.UpdateToDoTask(taskViewModel.ToDoTaskDto);
@@ -89,13 +90,32 @@ namespace ToDoList.Web.Controllers
         [Route("Tasks/New")]
         public ActionResult New()
         {
-            var viewModel = new NewTaskViewModel
+            var taskViewModel = new TaskViewModel
             {
                 Classifications = toDoListService.GetClassifications()
             };
-            return View(viewModel);
+            return View(taskViewModel);
         }
 
-
+        [Route("Tasks/Edit/{id:regex(\\d):range(0, 1000000)}")]
+        public ActionResult Edit(int id)
+        {
+            var currentUserId = User.Identity.GetUserId();
+            var toDoTaskDto = toDoListService.GetToDoTask(id);
+            if (toDoTaskDto == null)
+                return HttpNotFound();
+            if (!Check.IsAdmin(User) && toDoTaskDto.UserId != currentUserId)
+            {
+                ViewBag.Message = "Access denied. You're not allowed to open this ToDoTask";
+                return View("Error");
+            }
+            var taskViewModel = new TaskViewModel
+            {
+                ToDoTaskDto = toDoTaskDto,
+                Classifications = toDoListService.GetClassifications(),
+                PictureDto = toDoListService.GetPicture(toDoTaskDto.PictureId)
+            };
+            return View(taskViewModel);
+        }
     }
 }

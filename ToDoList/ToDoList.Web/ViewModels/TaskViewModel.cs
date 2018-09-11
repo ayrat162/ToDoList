@@ -6,7 +6,7 @@ using ToDoList.Core.DTO;
 
 namespace ToDoList.Web.ViewModels
 {
-    public class NewTaskViewModel
+    public class TaskViewModel
     {
         public IEnumerable<ClassificationDTO> Classifications { get; set; }
         public ToDoTaskDTO ToDoTaskDto { get; set; }

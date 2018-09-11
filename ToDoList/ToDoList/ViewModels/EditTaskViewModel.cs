@@ -6,7 +6,7 @@ using ToDoList.Models;
 
 namespace ToDoList.ViewModels
 {
-    public class EditTaskViewModel
+    public class TaskViewModel
     {
         public IEnumerable<Classification> Classifications { get; set; }
         public IEnumerable<ToDoTask> ToDoTasks { get; set; }

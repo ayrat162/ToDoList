@@ -39,7 +39,7 @@ namespace ToDoList.Controllers
         [Route("Tasks/New")]
         public ActionResult New()
         {
-            var viewModel = new EditTaskViewModel
+            var viewModel = new TaskViewModel
             {
                 Classifications = Repository.GetClassifications(),
                 ToDoTasks = Repository.GetTasks()
@@ -103,7 +103,7 @@ namespace ToDoList.Controllers
             {
                 return HttpNotFound();
             }
-            var viewModel = new EditTaskViewModel
+            var viewModel = new TaskViewModel
             {
                 Classifications = Repository.GetClassifications(),
                 ToDoTasks = Repository.GetTasks(),

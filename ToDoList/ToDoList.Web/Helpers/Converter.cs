@@ -12,22 +12,22 @@ namespace ToDoList.Web.Helpers
 {
     public static class Converter
     {
-        public static IEnumerable<ViewTaskViewModel> Dto2ViewModel(IEnumerable<ToDoTaskDTO> IEnumToDoTaskDto)
+        public static IEnumerable<TaskViewModel> Dto2ViewModel(IEnumerable<ToDoTaskDTO> IEnumToDoTaskDto)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToDoTaskDTO, ViewTaskViewModel>()).CreateMapper();
-            var toDoTasks = mapper.Map<IEnumerable<ToDoTaskDTO>, IEnumerable<ViewTaskViewModel>>(IEnumToDoTaskDto);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToDoTaskDTO, TaskViewModel>()).CreateMapper();
+            var toDoTasks = mapper.Map<IEnumerable<ToDoTaskDTO>, IEnumerable<TaskViewModel>>(IEnumToDoTaskDto);
             return toDoTasks;
         }
-        public static ViewTaskViewModel Dto2ViewModel(ToDoTaskDTO ToDoTaskDto)
+        public static TaskViewModel Dto2ViewModel(ToDoTaskDTO ToDoTaskDto)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToDoTaskDTO, ViewTaskViewModel>()).CreateMapper();
-            var toDoTasks = mapper.Map<ToDoTaskDTO, ViewTaskViewModel>(ToDoTaskDto);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToDoTaskDTO, TaskViewModel>()).CreateMapper();
+            var toDoTasks = mapper.Map<ToDoTaskDTO, TaskViewModel>(ToDoTaskDto);
             return toDoTasks;
         }
 
-        public static ViewTaskViewModel Dto2ViewModel()
+        public static TaskViewModel Dto2ViewModel()
         {
-            return new ViewTaskViewModel();
+            return new TaskViewModel();
         }
 
 

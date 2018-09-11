@@ -83,7 +83,8 @@ namespace ToDoList.Core.Services
         public void UpdateToDoTask(ToDoTaskDTO toDoTaskDto)
         {
             var toDoTask = Database.ToDoTasks.Get(toDoTaskDto.Id);
-            Mapper.Map(toDoTaskDto, toDoTask);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToDoTaskDTO, ToDoTask>()).CreateMapper();
+            mapper.Map(toDoTaskDto, toDoTask);
             Database.ToDoTasks.Update(toDoTask);
             Database.Save();
         }
@@ -98,6 +99,14 @@ namespace ToDoList.Core.Services
         public void Dispose()
         {
             Database.Dispose();
+        }
+
+        public void DeletePicture(int? id)
+        {
+            if (id != null)
+            {
+                Database.Pictures.Delete(id.Value);
+            }
         }
     }
 }
