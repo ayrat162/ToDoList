@@ -11,65 +11,76 @@
 </p>
 <table id="tasks" class="table table-hover table-striped">
     <thead>
-    <tr>
-        <th>
-            Description
-        </th>
-        <th>
-            Due Date & Time
-        </th>
-        <th>
-            Classification
-        </th>
-        <th>
-            Status
-        </th>
-        <th>
-                
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (ToDoTaskDTO task in Model.ToDoTaskDtos)
-    {
         <tr>
-            <td>
-                @Html.ActionLink(@task.Description, "View", "Home", new { id = @task.Id }, null)
-            </td>
-            <td>
-                @task.DueDateTime
-            </td>
-            <td>
-                @if (@Model.Classifications.SingleOrDefault(c => c.Id == task.ClassificationId) != null)
-                {
-                    @Model.Classifications.SingleOrDefault(c => c.Id == task.ClassificationId).Name
-                }
-                else { 
-                    @:N/A
-                }
-            </td>
-            <td>
-                @task.Status
-            </td>
-            <td>
-                <button data-task-id="@task.Id" class="btn-link js-delete">
-                    Delete
-                </button>
-            </td>
+            <th>
+                Description
+            </th>
+            <th>
+                Due Date & Time
+            </th>
+            <th>
+                Classification
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Edit
+            </th>
+            <th>
+                Delete
+            </th>
         </tr>
-    }
-
-
-    </tbody>  
+    </thead>
+    <tbody></tbody>
 </table>
 
 @section scripts
 {
     <script>
-        $(document).ready(function () {
-            $("#tasks").DataTable();
-            $("#tasks").on("click", ".js-delete",
-                function () {
+        $(document).ready(function() {
+            var table = $("#tasks").DataTable({
+                ajax: {
+                    url: "/api/tasks/",
+                    dataSrc: "toDoTaskDtos"
+                },
+                columns: [
+                    {
+                        data: "description",
+                        render: function(data, type, task) {
+                            return "<a href='/tasks/" + task.id + "'>" + task.description + "</a>";
+                        }
+                    },
+                    {
+                        data: "dueDateTime",
+                        render: function(data) {
+                            var date = new Date(data);
+                            return date.toDateString();
+                        }
+                    },
+                    {
+                        data: "classificationName"
+                    },
+                    {
+                        data: "status"
+                    },
+                    {
+                        data: "id",
+                        render: function (data, type, task) {
+                            return "<a href='/tasks/edit/" + task.id + "'>Edit</a>";
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function(data) {
+                            return "<button class='btn-link js-delete' data-task-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+            $("#tasks").on("click",
+                ".js-delete",
+                function() {
                     var button = $(this);
                     bootbox.confirm("Are you sure that you want to delete the customer?",
                         function(result) {
@@ -77,8 +88,8 @@
                                 $.ajax({
                                     url: "/api/tasks/" + button.attr("data-task-id"),
                                     method: "DELETE",
-                                    success: function() {
-                                        button.parents("tr").remove();
+                                    success: function () {
+                                        table.row(button.parents("tr")).remove().draw();
                                     }
                                 });
                             }

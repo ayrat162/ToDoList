@@ -51,7 +51,7 @@ namespace ToDoList.Core.Services
         {
             return Converter.Convert2Dto(Database.Classifications.GetAll());
         }
-
+    
         public ToDoTaskDTO GetToDoTask(int? id)
         {
             if (id == null) return null;

@@ -7,9 +7,11 @@ using ToDoList.Core.DTO;
 using ToDoList.Core.Interfaces;
 using ToDoList.Core.Services;
 using ToDoList.Web.Helpers;
+using ToDoList.Web.ViewModels;
 
 namespace ToDoList.Web.Controllers.API
 {
+    [System.Web.Mvc.Authorize]
     public class TasksController : ApiController
     {
         private ToDoListService toDoListService;
@@ -23,9 +25,16 @@ namespace ToDoList.Web.Controllers.API
             toDoListService = service;
         }
 
-        public IEnumerable<ToDoTaskDTO> GetTasks()
+        public ViewAllTasksViewModel GetTasks()
         {
-            return toDoListService.GetToDoTasks();
+            var currentUserId = User.Identity.GetUserId();
+            var tasksViewModel= new ViewAllTasksViewModel();
+            tasksViewModel.Classifications = toDoListService.GetClassifications();
+            if (Check.IsAdmin(User))
+                tasksViewModel.ToDoTaskDtos = toDoListService.GetToDoTasks();
+            else
+                tasksViewModel.ToDoTaskDtos = toDoListService.GetToDoTasksOf(currentUserId);
+            return tasksViewModel;
         }
         public ToDoTaskDTO GetTask(int id)
         {
