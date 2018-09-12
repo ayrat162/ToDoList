@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using ToDoList.Core.DTO;
-using ToDoList.Core.Interfaces;
 using ToDoList.Core.Services;
 using ToDoList.Web.Helpers;
 using ToDoList.Web.ViewModels;
@@ -24,18 +21,7 @@ namespace ToDoList.Web.Controllers
 
         public ActionResult Index()
         {
-            var currentUserId = User.Identity.GetUserId();
-            IEnumerable<ToDoTaskDTO> toDoTaskDtos;
-            if (Check.IsAdmin(User))
-                toDoTaskDtos = toDoListService.GetToDoTasks();
-            else
-                toDoTaskDtos = toDoListService.GetToDoTasksOf(currentUserId);
-            var toDoTasks = new ViewAllTasksViewModel
-            {
-                ToDoTaskDtos = toDoTaskDtos,
-                Classifications = toDoListService.GetClassifications()
-            };
-            return View(toDoTasks);
+            return View();
         }
 
         [System.Web.Mvc.Route("Tasks/{id:regex(\\d):range(0, 1000000)}")]

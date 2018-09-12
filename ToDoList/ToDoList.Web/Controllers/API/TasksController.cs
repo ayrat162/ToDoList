@@ -25,29 +25,31 @@ namespace ToDoList.Web.Controllers.API
             toDoListService = service;
         }
 
-        public ViewAllTasksViewModel GetTasks()
+        public IEnumerable<ToDoTaskDTO> GetTasks()
         {
             var currentUserId = User.Identity.GetUserId();
-            var tasksViewModel= new ViewAllTasksViewModel();
-            tasksViewModel.Classifications = toDoListService.GetClassifications();
             if (Check.IsAdmin(User))
-                tasksViewModel.ToDoTaskDtos = toDoListService.GetToDoTasks();
+                return toDoListService.GetToDoTasks();
             else
-                tasksViewModel.ToDoTaskDtos = toDoListService.GetToDoTasksOf(currentUserId);
-            return tasksViewModel;
+                return toDoListService.GetToDoTasksOf(currentUserId);
         }
         public ToDoTaskDTO GetTask(int id)
         {
-            var toDoTask = toDoListService.GetToDoTask(id);
-            if (toDoTask == null)
+            var currentUserId = User.Identity.GetUserId();
+            var toDoTaskDto = toDoListService.GetToDoTask(id);
+            if (toDoTaskDto == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-            return toDoTask;
+            if (!Check.IsAdmin(User) && toDoTaskDto.UserId != currentUserId)
+                throw new HttpResponseException(HttpStatusCode.Forbidden);
+            return toDoTaskDto;
         }
         [HttpPost]
         public IHttpActionResult CreateTask(ToDoTaskDTO toDoTaskDto)
         {
             //if(ModelState.IsValid)
             //    return BadRequest();
+            var currentUserId = User.Identity.GetUserId();
+            toDoTaskDto.UserId = currentUserId;
             var newTaskId = toDoListService.AddToDoTask(toDoTaskDto);
             return Created(new Uri(Request.RequestUri + "/" + newTaskId), toDoListService.GetToDoTask(newTaskId));
         }
