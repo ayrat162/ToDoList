@@ -25,13 +25,17 @@ namespace ToDoList.Web.Controllers.API
             toDoListService = service;
         }
 
-        public IEnumerable<ToDoTaskDTO> GetTasks()
+        public ViewAllTasksViewModel GetTasks()
         {
+            // TODO: Add Include(Classification) to the context GetToDoTasks
+            var tasksViewModel = new ViewAllTasksViewModel();
+            tasksViewModel.Classifications = toDoListService.GetClassifications();
             var currentUserId = User.Identity.GetUserId();
             if (Check.IsAdmin(User))
-                return toDoListService.GetToDoTasks();
+                tasksViewModel.ToDoTaskDtos = toDoListService.GetToDoTasks();
             else
-                return toDoListService.GetToDoTasksOf(currentUserId);
+                tasksViewModel.ToDoTaskDtos = toDoListService.GetToDoTasksOf(currentUserId);
+            return tasksViewModel;
         }
         public ToDoTaskDTO GetTask(int id)
         {
@@ -46,8 +50,6 @@ namespace ToDoList.Web.Controllers.API
         [HttpPost]
         public IHttpActionResult CreateTask(ToDoTaskDTO toDoTaskDto)
         {
-            //if(ModelState.IsValid)
-            //    return BadRequest();
             var currentUserId = User.Identity.GetUserId();
             toDoTaskDto.UserId = currentUserId;
             var newTaskId = toDoListService.AddToDoTask(toDoTaskDto);

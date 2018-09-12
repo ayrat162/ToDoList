@@ -8,6 +8,7 @@ using System.Linq;
 using ToDoList.DAL.EF;
 using ToDoList.DAL.Entities;
 using ToDoList.DAL.Interfaces;
+using System.Data.Entity.Infrastructure;
 
 namespace ToDoList.DAL.Repositories
 {
@@ -20,11 +21,11 @@ namespace ToDoList.DAL.Repositories
         }
         public IEnumerable<ToDoTask> GetAll()
         {
-            return db.ToDoTasks;
+            return db.ToDoTasks.Include(t=>t.User);
         }
         public ToDoTask Get(int id)
         {
-            return db.ToDoTasks.Find(id);
+            return db.ToDoTasks.Include(t=>t.User).SingleOrDefault(t=>t.Id==id);
         }
         public ToDoTask Create(ToDoTask toDoTask)
         {

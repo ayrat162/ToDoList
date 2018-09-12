@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters;
 using AutoMapper;
 using ToDoList.Core.DTO;
 using ToDoList.Core.Helpers;
-using ToDoList.Core.Infrastructure;
 using ToDoList.Core.Interfaces;
 using ToDoList.DAL.Entities;
 using ToDoList.DAL.Interfaces;

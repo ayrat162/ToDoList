@@ -24,9 +24,10 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @if (Check.IsAdmin(User))
                     {
-                    <li>@Html.ActionLink("Home", "Admin", "Home")</li>
+                    <li>@Html.ActionLink("Admin's Link", "Index", "Home")</li>
                     }
                     <li>@Html.ActionLink("About", "About", "Pages")</li>
+                    @* TODO: Create Contacts page *@
                     <li>@Html.ActionLink("Contact", "Contact", "Pages")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
