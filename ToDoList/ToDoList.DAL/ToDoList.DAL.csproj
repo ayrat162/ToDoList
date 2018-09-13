@@ -59,6 +59,7 @@
     <Compile Include="EF\ToDoListContext.cs" />
     <Compile Include="Entities\Identity\ApplicationRole.cs" />
     <Compile Include="Entities\Identity\ApplicationUser.cs" />
+    <Compile Include="Entities\Identity\Relationship.cs" />
     <Compile Include="Entities\ToDoTasks\Classification.cs" />
     <Compile Include="Entities\Identity\ClientProfile.cs" />
     <Compile Include="Entities\ToDoTasks\Picture.cs" />
@@ -100,9 +101,14 @@
     <Compile Include="Migrations\201809111102542_MadeUserIdRequired.Designer.cs">
       <DependentUpon>201809111102542_MadeUserIdRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809130949221_AddedRelationships.cs" />
+    <Compile Include="Migrations\201809130949221_AddedRelationships.Designer.cs">
+      <DependentUpon>201809130949221_AddedRelationships.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Identity\ClientManager.cs" />
+    <Compile Include="Repositories\Identity\RelationshipRepository.cs" />
     <Compile Include="Repositories\ToDoList\ClassificationRepository.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
     <Compile Include="Repositories\ToDoList\PictureRepository.cs" />
@@ -132,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809111102542_MadeUserIdRequired.resx">
       <DependentUpon>201809111102542_MadeUserIdRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809130949221_AddedRelationships.resx">
+      <DependentUpon>201809130949221_AddedRelationships.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

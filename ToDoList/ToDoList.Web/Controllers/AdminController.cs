@@ -11,10 +11,10 @@ using ToDoList.Web.ViewModels;
 namespace ToDoList.Web.Controllers
 {
     [System.Web.Mvc.Authorize]
-    public class HomeController : Controller
+    public class AdminController : Controller
     {
         private ToDoListService toDoListService;
-        public HomeController(ToDoListService service)
+        public AdminController(ToDoListService service)
         {
             toDoListService = service;
         }
@@ -72,7 +72,7 @@ namespace ToDoList.Web.Controllers
                 }
                 toDoListService.UpdateToDoTask(taskViewModel.ToDoTaskDto);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Tasks");
         }
         
         [System.Web.Mvc.Route("Tasks/New")]

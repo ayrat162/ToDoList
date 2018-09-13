@@ -29,9 +29,9 @@ namespace ToDoList.DAL.Repositories
             db.SaveChanges();
             return newClassification;
         }
-        public void Update(Classification Classification)
+        public void Update(Classification classification)
         {
-            db.Entry(Classification).State = EntityState.Modified;
+            db.Entry(classification).State = EntityState.Modified;
             db.SaveChanges();
         }
         public IEnumerable<Classification> Find(Func<Classification, Boolean> predicate)
@@ -40,9 +40,9 @@ namespace ToDoList.DAL.Repositories
         }
         public void Delete(int id)
         {
-            var Classification = db.Classifications.Find(id);
-            if (Classification != null)
-                db.Classifications.Remove(Classification);
+            var classification = db.Classifications.Find(id);
+            if (classification != null)
+                db.Classifications.Remove(classification);
             db.SaveChanges();
         }
     }

@@ -4,39 +4,40 @@ using System.Net;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using ToDoList.Core.DTO;
-using ToDoList.Core.Interfaces;
 using ToDoList.Core.Services;
 using ToDoList.Web.Helpers;
 using ToDoList.Web.ViewModels;
+using System.Web.Mvc;
 
-namespace ToDoList.Web.Controllers.API
+namespace ToDoList.Web.Controllers
 {
     [System.Web.Mvc.Authorize]
-    public class TasksController : ApiController
+    public class TasksApiController : ApiController
     {
         private ToDoListService toDoListService;
-        public TasksController(ToDoListService service)
+        public TasksApiController(ToDoListService service)
         {
             toDoListService = service;
         }
         ToDoListService service = new ToDoListService();
-        public TasksController()
+        public TasksApiController()
         {
             toDoListService = service;
         }
 
-        public ViewAllTasksViewModel GetTasks()
+        [System.Web.Mvc.Route("API/Tasks")]
+        [System.Web.Mvc.HttpGet]
+        public IEnumerable<ToDoTaskDTO> GetTasks()
         {
-            // TODO: Add Include(Classification) to the context GetToDoTasks
-            var tasksViewModel = new ViewAllTasksViewModel();
-            //tasksViewModel.Classifications = toDoListService.GetClassifications();
             var currentUserId = User.Identity.GetUserId();
             if (Check.IsAdmin(User))
-                tasksViewModel.ToDoTaskDtos = toDoListService.GetToDoTasks();
+                return toDoListService.GetToDoTasks();
             else
-                tasksViewModel.ToDoTaskDtos = toDoListService.GetToDoTasksOf(currentUserId);
-            return tasksViewModel;
+                return toDoListService.GetToDoTasksOf(currentUserId);
         }
+
+        [System.Web.Mvc.Route("API/Tasks/{id:regex(\\d):range(0, 1000000)}")]
+        [System.Web.Mvc.HttpGet]
         public ToDoTaskDTO GetTask(int id)
         {
             var currentUserId = User.Identity.GetUserId();
@@ -47,15 +48,9 @@ namespace ToDoList.Web.Controllers.API
                 throw new HttpResponseException(HttpStatusCode.Forbidden);
             return toDoTaskDto;
         }
-        [HttpPost]
-        public IHttpActionResult CreateTask(ToDoTaskDTO toDoTaskDto)
-        {
-            var currentUserId = User.Identity.GetUserId();
-            toDoTaskDto.UserId = currentUserId;
-            var newTaskId = toDoListService.AddToDoTask(toDoTaskDto);
-            return Created(new Uri(Request.RequestUri + "/" + newTaskId), toDoListService.GetToDoTask(newTaskId));
-        }
-        [HttpPut]
+
+        [System.Web.Mvc.Route("API/Tasks/{id:regex(\\d):range(0, 1000000)}")]
+        [System.Web.Mvc.HttpPut]
         public ToDoTaskDTO UpdateTask(int id, ToDoTaskDTO toDoTaskDto)
         {
             if (ModelState.IsValid)
@@ -66,7 +61,9 @@ namespace ToDoList.Web.Controllers.API
             toDoListService.UpdateToDoTask(toDoTaskDto);
             return toDoListService.GetToDoTask(id);
         }
-        [HttpDelete]
+
+        [System.Web.Mvc.Route("API/Tasks/{id:regex(\\d):range(0, 1000000)}")]
+        [System.Web.Mvc.HttpDelete]
         public void DeleteTask(int id)
         {
             var toDoTaskDto = toDoListService.GetToDoTask(id);
@@ -76,6 +73,16 @@ namespace ToDoList.Web.Controllers.API
             if (!Check.IsAdmin(User) && toDoTaskDto.UserId != currentUserId)
                 throw new HttpResponseException(HttpStatusCode.Forbidden);
             toDoListService.DeleteToDoTask(id);
+        }
+
+        [System.Web.Mvc.Route("API/Tasks/New")]
+        [System.Web.Mvc.HttpPost]
+        public IHttpActionResult CreateTask(ToDoTaskDTO toDoTaskDto)
+        {
+            var currentUserId = User.Identity.GetUserId();
+            toDoTaskDto.UserId = currentUserId;
+            var newTaskId = toDoListService.AddToDoTask(toDoTaskDto);
+            return Created(new Uri(Request.RequestUri + "/" + newTaskId), toDoListService.GetToDoTask(newTaskId));
         }
     }
 }
