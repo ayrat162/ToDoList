@@ -98,14 +98,14 @@ namespace ToDoList.Web.Controllers
         }
         private async Task SetInitialDataAsync()
         {
-            await UserService.SetInitialData(new UserDTO
-            {
-                Email = "a@a.com",
-                UserName = "admin",
-                Password = "12345",
-                Name = "Administrator",
-                Role = "admin",
-            }, new List<string> { "user", "admin" });
+            //await UserService.SetInitialData(new UserDTO
+            //{
+            //    Email = "a@a.com",
+            //    UserEmail = "admin",
+            //    Password = "12345",
+            //    Name = "Administrator",
+            //    Role = "admin",
+            //}, new List<string> { "user", "admin" });
         }
     }
 }

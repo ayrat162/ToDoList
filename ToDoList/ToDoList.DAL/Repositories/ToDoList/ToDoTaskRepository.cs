@@ -21,11 +21,11 @@ namespace ToDoList.DAL.Repositories
         }
         public IEnumerable<ToDoTask> GetAll()
         {
-            return db.ToDoTasks.Include(t=>t.User);
+            return db.ToDoTasks.Include(t=>t.User).Include(t=>t.Classification);
         }
         public ToDoTask Get(int id)
         {
-            return db.ToDoTasks.Include(t=>t.User).SingleOrDefault(t=>t.Id==id);
+            return db.ToDoTasks.Include(t=>t.User).Include(t=>t.Classification).SingleOrDefault(t=>t.Id==id);
         }
         public ToDoTask Create(ToDoTask toDoTask)
         {

@@ -29,7 +29,7 @@ namespace ToDoList.Web.Controllers.API
         {
             // TODO: Add Include(Classification) to the context GetToDoTasks
             var tasksViewModel = new ViewAllTasksViewModel();
-            tasksViewModel.Classifications = toDoListService.GetClassifications();
+            //tasksViewModel.Classifications = toDoListService.GetClassifications();
             var currentUserId = User.Identity.GetUserId();
             if (Check.IsAdmin(User))
                 tasksViewModel.ToDoTaskDtos = toDoListService.GetToDoTasks();

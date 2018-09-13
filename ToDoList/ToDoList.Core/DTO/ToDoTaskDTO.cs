@@ -13,7 +13,7 @@ namespace ToDoList.Core.DTO
         public string ConnectedTaskName { get; set; }
         public int? ConnectedToDoTaskId { get; set; }
         public int? PictureId { get; set; }
-        public string UserName { get; set; }
+        public string UserUserName { get; set; }
         public string UserId { get; set; }
     }
 }
