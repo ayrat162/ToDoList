@@ -2,7 +2,7 @@
 using ToDoList.Core.Interfaces;
 using ToDoList.Core.Services;
 
-namespace ToDoList.Web.Util
+namespace ToDoList.Web.Helpers
 {
     public class ToDoTaskModule : NinjectModule
     {

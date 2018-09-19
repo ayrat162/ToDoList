@@ -199,9 +199,11 @@
     <Compile Include="Models\PictureModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\ToDoTaskModule.cs" />
+    <Compile Include="Helpers\ToDoTaskModule.cs" />
+    <Compile Include="ViewModels\AllUsersViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
-    <Compile Include="ViewModels\ViewAllTasksViewModel.cs" />
+    <Compile Include="ViewModels\AllTasksViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\ToDoList.DAL.EF.ToDoListContext.mdf" />
@@ -485,6 +487,8 @@
     <Content Include="Views\Pages\About.cshtml" />
     <Content Include="Views\Tasks\New.cshtml" />
     <Content Include="Views\Tasks\Edit.cshtml" />
+    <Content Include="Views\Admin\View.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\ToDo\" />

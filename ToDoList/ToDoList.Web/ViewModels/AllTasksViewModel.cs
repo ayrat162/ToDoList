@@ -5,7 +5,7 @@ using ToDoList.Web.Models;
 
 namespace ToDoList.Web.ViewModels
 {
-    public class ViewAllTasksViewModel
+    public class AllTasksViewModel
     {
         public IEnumerable<ToDoTaskDTO> ToDoTaskDtos { get; set; }
         public IEnumerable<ClassificationDTO> Classifications { get; set; }

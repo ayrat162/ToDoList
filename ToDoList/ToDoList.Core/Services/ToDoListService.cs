@@ -13,17 +13,14 @@ namespace ToDoList.Core.Services
 
     {
         private IUnitOfWork Database { get; set; }
-
         public ToDoListService(IUnitOfWork unitOfWork)
         {
             Database = unitOfWork;
         }
-
         public ToDoListService()
         {
             Database= new EFUnitOfWork();
         }
-
 
         public int AddToDoTask(ToDoTaskDTO toDoTaskDto)
         {
@@ -101,11 +98,6 @@ namespace ToDoList.Core.Services
             Database.Save();
         }
 
-        public void Dispose()
-        {
-            Database.Dispose();
-        }
-
         public void DeleteToDoTask(int? id)
         {
             if (id != null)
@@ -126,6 +118,11 @@ namespace ToDoList.Core.Services
             {
                 Database.Pictures.Delete(id.Value);
             }
+        }
+
+        public void Dispose()
+        {
+            Database.Dispose();
         }
     }
 }

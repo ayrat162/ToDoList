@@ -1,0 +1,14 @@
+﻿@model ToDoList.Web.ViewModels.UserViewModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>View</h2>
+@*@Html.LabelFor(m => m.UserDto.Name): @Model.UserDto.Name*@
+<br />
+@Html.LabelFor(m => m.UserDto.Email): @Model.UserDto.Email
+<br />
+    @Html.LabelFor(m => m.UserDto.Role): @Model.UserDto.Role
+<br />
+@Html.LabelFor(m => m.UserDto.UserName): @Model.UserDto.UserName

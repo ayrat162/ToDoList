@@ -46,7 +46,19 @@ namespace ToDoList.Core.Helpers
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Classification, ClassificationDTO>()).CreateMapper();
             return mapper.Map<Classification, ClassificationDTO>(classification);
         }
+        public static UserDTO Convert2Dto(ApplicationUser user)
+        {
+            if (user == null) return null;
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, UserDTO>()).CreateMapper();
+            return mapper.Map<ApplicationUser, UserDTO>(user);
+        }
 
+        public static IEnumerable<UserDTO> Convert2Dto(IEnumerable<ApplicationUser> users)
+        {
+            if (users == null) return null;
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, UserDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserDTO>>(users);
+        }
 
 
         public static ToDoTask Convert2Dal(ToDoTaskDTO toDoTask)

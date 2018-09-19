@@ -5,11 +5,14 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using ToDoList.Core.DTO;
+using ToDoList.Core.Helpers;
 using ToDoList.Core.Infrastructure;
 using ToDoList.Core.Interfaces;
 using ToDoList.DAL.Entities;
 using ToDoList.DAL.Interfaces;
+using ToDoList.DAL.Repositories;
 
 namespace ToDoList.Core.Services
 {
@@ -20,6 +23,11 @@ namespace ToDoList.Core.Services
         {
             Database = unitOfWork;
         }
+        public UserService()
+        {
+            Database = new EFUnitOfWork();
+        }
+
         public async Task<OperationDetails> Create(UserDTO userDto)
         {
             ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
@@ -64,6 +72,47 @@ namespace ToDoList.Core.Services
                 }
             }
             await Create(adminDto);
+        }
+
+        public IEnumerable<UserDTO> GetAllUsers()
+        {
+            var users = Database.UserManager.Users.ToList();
+            return Converter.Convert2Dto(users);
+        }
+
+        public UserDTO GetUser(string id)
+        {
+            if (id == null) return null;
+            var user = Database.UserManager.FindById(id);
+            if (user == null) return null;
+            return Converter.Convert2Dto(user);
+        }
+        public IList<string> GetRoleForUser(string id)
+        {
+            if (id == null) return null;
+            var roles = Database.UserManager.GetRoles(id);
+            return roles;
+        }
+
+        // TODO: Implementation required
+        public void UpdateUser(UserDTO userDto)
+        {
+            var user = Database.UserManager.FindById(userDto.Id);
+            Mapper.Map(userDto, user);
+            Database.UserManager.Update(user);
+            Database.Save();
+        }
+
+        public void DeleteUser(string id)
+        {
+            var user = Database.UserManager.FindById(id);
+            if (user != null)
+            {
+                // TODO: Implement Delete for ClientManager
+                // Database.ClientManager.Delete(id);
+                Database.UserManager.Delete(user);
+            }
+            Database.Save();
         }
 
         public void Dispose()
