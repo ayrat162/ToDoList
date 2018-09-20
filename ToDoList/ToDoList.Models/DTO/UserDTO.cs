@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToDoList.Core.DTO
+namespace ToDoList.Models.DTO
 {
     public class UserDTO
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
-using ToDoList.Core.DTO;
 using ToDoList.Core.Interfaces;
 using ToDoList.Core.Services;
+using ToDoList.Models.DTO;
 using ToDoList.Web.Helpers;
 using ToDoList.Web.ViewModels;
 

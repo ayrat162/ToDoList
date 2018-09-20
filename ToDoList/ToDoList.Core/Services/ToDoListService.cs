@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using ToDoList.Core.DTO;
 using ToDoList.Core.Helpers;
 using ToDoList.Core.Interfaces;
-using ToDoList.DAL.Entities;
 using ToDoList.DAL.Interfaces;
 using ToDoList.DAL.Repositories;
+using ToDoList.Models.DTO;
+using ToDoList.Models.Entities;
 
 namespace ToDoList.Core.Services
 {

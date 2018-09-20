@@ -2,10 +2,10 @@
 using System;
 using System.Threading.Tasks;
 using ToDoList.DAL.EF;
-using ToDoList.DAL.Entities;
 using ToDoList.DAL.Identity;
 using ToDoList.DAL.Interfaces;
 using ToDoList.DAL.Repositories.Identity;
+using ToDoList.Models.Entities;
 
 namespace ToDoList.DAL.Repositories
 {

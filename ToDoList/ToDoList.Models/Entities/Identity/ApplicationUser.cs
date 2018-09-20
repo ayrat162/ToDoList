@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace ToDoList.DAL.Entities
+namespace ToDoList.Models.Entities
 {
     public class ApplicationUser : IdentityUser
     {

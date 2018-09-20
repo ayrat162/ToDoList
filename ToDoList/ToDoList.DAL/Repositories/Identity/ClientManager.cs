@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoList.DAL.EF;
-using ToDoList.DAL.Entities;
 using ToDoList.DAL.Interfaces;
+using ToDoList.Models.Entities;
 
 namespace ToDoList.DAL.Repositories.Identity
 {

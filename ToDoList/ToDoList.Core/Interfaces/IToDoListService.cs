@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ToDoList.Core.DTO;
+using ToDoList.Models.DTO;
 
 namespace ToDoList.Core.Interfaces
 {

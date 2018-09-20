@@ -501,6 +501,10 @@
       <Project>{cfd7f5ff-5029-4132-b938-538b3ad67136}</Project>
       <Name>ToDoList.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ToDoList.Models\ToDoList.Models.csproj">
+      <Project>{BF48E6D3-1F18-46FA-832A-07697C7D6B56}</Project>
+      <Name>ToDoList.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

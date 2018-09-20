@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ToDoList.DAL.Entities;
 using ToDoList.DAL.Identity;
+using ToDoList.Models.Entities;
 
 namespace ToDoList.DAL.Interfaces
 {

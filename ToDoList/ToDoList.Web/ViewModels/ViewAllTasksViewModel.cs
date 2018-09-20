@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ToDoList.Core.DTO;
+using ToDoList.Models.DTO;
 using ToDoList.Web.Models;
 
 namespace ToDoList.Web.ViewModels

@@ -5,11 +5,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using ToDoList.Core.DTO;
 using ToDoList.Core.Infrastructure;
 using ToDoList.Core.Interfaces;
-using ToDoList.DAL.Entities;
 using ToDoList.DAL.Interfaces;
+using ToDoList.Models.DTO;
+using ToDoList.Models.Entities;
 
 namespace ToDoList.Core.Services
 {

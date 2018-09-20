@@ -1,4 +1,4 @@
-﻿namespace ToDoList.Core.DTO
+﻿namespace ToDoList.Models.DTO
 {
     public class ClassificationDTO
     {

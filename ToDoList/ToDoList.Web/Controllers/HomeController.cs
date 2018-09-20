@@ -3,8 +3,8 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using ToDoList.Core.DTO;
 using ToDoList.Core.Services;
+using ToDoList.Models.DTO;
 using ToDoList.Web.Helpers;
 using ToDoList.Web.ViewModels;
 

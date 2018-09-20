@@ -57,12 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EF\ToDoListContext.cs" />
-    <Compile Include="Entities\Identity\ApplicationRole.cs" />
-    <Compile Include="Entities\Identity\ApplicationUser.cs" />
-    <Compile Include="Entities\ToDoTasks\Classification.cs" />
-    <Compile Include="Entities\Identity\ClientProfile.cs" />
-    <Compile Include="Entities\ToDoTasks\Picture.cs" />
-    <Compile Include="Entities\ToDoTasks\ToDoTask.cs" />
     <Compile Include="Identity\ApplicationRoleManager.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Interfaces\IClientManager.cs" />
@@ -100,6 +94,10 @@
     <Compile Include="Migrations\201809111102542_MadeUserIdRequired.Designer.cs">
       <DependentUpon>201809111102542_MadeUserIdRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809201048333_DevBranchAdded.cs" />
+    <Compile Include="Migrations\201809201048333_DevBranchAdded.Designer.cs">
+      <DependentUpon>201809201048333_DevBranchAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Identity\ClientManager.cs" />
@@ -133,12 +131,20 @@
     <EmbeddedResource Include="Migrations\201809111102542_MadeUserIdRequired.resx">
       <DependentUpon>201809111102542_MadeUserIdRequired.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809201048333_DevBranchAdded.resx">
+      <DependentUpon>201809201048333_DevBranchAdded.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ToDoList.Models\ToDoList.Models.csproj">
+      <Project>{bf48e6d3-1f18-46fa-832a-07697c7d6b56}</Project>
+      <Name>ToDoList.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

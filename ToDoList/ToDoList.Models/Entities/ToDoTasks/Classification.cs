@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ToDoList.DAL.Entities
+namespace ToDoList.Models.Entities
 {
     public class Classification
     {

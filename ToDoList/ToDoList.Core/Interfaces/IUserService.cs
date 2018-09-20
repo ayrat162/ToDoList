@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ToDoList.Core.DTO;
 using ToDoList.Core.Infrastructure;
+using ToDoList.Models.DTO;
 
 namespace ToDoList.Core.Interfaces
 {

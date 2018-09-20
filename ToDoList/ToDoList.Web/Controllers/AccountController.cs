@@ -7,9 +7,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using ToDoList.Core.DTO;
 using ToDoList.Core.Infrastructure;
 using ToDoList.Core.Interfaces;
+using ToDoList.Models.DTO;
 using ToDoList.Web.Models;
 
 namespace ToDoList.Web.Controllers

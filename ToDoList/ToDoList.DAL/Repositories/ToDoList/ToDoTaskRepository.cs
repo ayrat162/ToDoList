@@ -6,9 +6,9 @@ using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using ToDoList.DAL.EF;
-using ToDoList.DAL.Entities;
 using ToDoList.DAL.Interfaces;
 using System.Data.Entity.Infrastructure;
+using ToDoList.Models.Entities;
 
 namespace ToDoList.DAL.Repositories
 {
