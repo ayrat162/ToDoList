@@ -12,9 +12,9 @@ namespace ToDoList.Core.Services
     public class ToDoListService : IToDoListService
 
     {
-        private IUnitOfWork Database { get; set; }
+        private EFUnitOfWork Database { get; set; }
 
-        public ToDoListService(IUnitOfWork unitOfWork)
+        public ToDoListService(EFUnitOfWork unitOfWork)
         {
             Database = unitOfWork;
         }

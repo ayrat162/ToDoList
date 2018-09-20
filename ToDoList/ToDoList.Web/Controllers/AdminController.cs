@@ -18,6 +18,12 @@ namespace ToDoList.Web.Controllers
         {
             toDoListService = service;
         }
+        public AdminController()
+        {
+            toDoListService = new ToDoListService();
+        }
+
+
 
         public ActionResult Index()
         {

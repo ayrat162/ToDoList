@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using ToDoList.Core.Interfaces;
 using ToDoList.Core.Services;
 using ToDoList.Models.DTO;
+using ToDoList.Models.Entities;
 using ToDoList.Web.Helpers;
 using ToDoList.Web.ViewModels;
 
@@ -14,27 +15,22 @@ namespace ToDoList.Web.Controllers.API
     [System.Web.Mvc.Authorize]
     public class AdminApiController : ApiController
     {
-        private ToDoListService toDoListService;
-        public AdminApiController(ToDoListService service)
+        private UserService userService;
+        public AdminApiController(UserService service)
         {
-            toDoListService = service;
+            userService = service;
         }
-        ToDoListService service = new ToDoListService();
+        UserService service = new UserService();
         public AdminApiController()
         {
-            toDoListService = service;
+            userService = service;
         }
 
-        //public IEnumerable<ToDoTaskDTO> GetTasks()
-        //{
-        //    // TODO: Add Include(Classification) to the context GetToDoTasks
-        //    var classifications = toDoListService.GetClassifications();
-        //    var currentUserId = User.Identity.GetUserId();
-        //    if (Check.IsAdmin(User))
-        //        return toDoListService.GetToDoTasks();
-        //    else
-        //        return toDoListService.GetToDoTasksOf(currentUserId);
-        //}
+        public IEnumerable<ClientProfile> GetUsers()
+        {
+            var users = userService.GetAllUsers();
+            return users;
+        }
         //public ToDoTaskDTO GetTask(int id)
         //{
         //    var currentUserId = User.Identity.GetUserId();

@@ -14,15 +14,19 @@ namespace ToDoList.Web.Controllers
     public class TasksController : Controller
     {
         private ToDoListService toDoListService;
-        public TasksController(ToDoListService service)
+        //public TasksController(ToDoListService service)
+        //{
+        //    toDoListService = service;
+        //}
+        public TasksController()
         {
-            toDoListService = service;
+            toDoListService = new ToDoListService();
         }
-
         public ActionResult Index()
         {
             return View();
         }
+        
 
         [System.Web.Mvc.Route("Tasks/{id:regex(\\d):range(0, 1000000)}")]
         public ActionResult View(int id)

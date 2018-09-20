@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "List of the Tasks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Tasks List</h2>
+<p>
+    <strong>@Html.ActionLink("Create a New Task", "New", "Tasks")</strong>
+</p>
+<table id="tasks" class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Classification
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Edit
+            </th>
+            <th>
+                Delete
+            </th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            var table = $("#tasks").DataTable({
+                ajax: {
+                    url: "/api/adminapi/",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "userName",
+                        render: function(data, type, task) {
+                            return "<a href='/tasks/" + task.id + "'>" + task.description + "</a>";
+                        }
+                    },
+                    {
+                        data: "dueDateTime",
+                        render: function(data) {
+                            var date = new Date(data);
+                            return date.toDateString();
+                        }
+                    },
+                    {
+                        data: "classificationName"
+                    },
+                    {
+                        data: "status"
+                    },
+                    {
+                        data: "id",
+                        render: function (data, type, task) {
+                            return "<a href='/tasks/edit/" + task.id + "'>Edit</a>";
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function(data) {
+                            return "<button class='btn-link js-delete' data-task-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+            $("#tasks").on("click",
+                ".js-delete",
+                function() {
+                    var button = $(this);
+                    bootbox.confirm("Are you sure that you want to delete the customer?",
+                        function(result) {
+                            if (result) {
+                                $.ajax({
+                                    url: "/api/tasks/" + button.attr("data-task-id"),
+                                    method: "DELETE",
+                                    success: function () {
+                                        table.row(button.parents("tr")).remove().draw();
+                                    }
+                                });
+                            }
+                        });
+                });
+        })
+    </script>
+
+}

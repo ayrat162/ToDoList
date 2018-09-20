@@ -9,7 +9,7 @@ using ToDoList.Models.Entities;
 
 namespace ToDoList.DAL.Repositories
 {
-    public class EFUnitOfWork: IUnitOfWork
+    public class EFUnitOfWork
     {
         private ToDoListContext db;
         private ToDoTaskRepository toDoTaskRepository;
@@ -17,7 +17,7 @@ namespace ToDoList.DAL.Repositories
         private PictureRepository pictureRepository;
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
-        private IClientManager clientManager;
+        private ClientManager clientManager;
 
         public EFUnitOfWork()
         {
@@ -59,7 +59,7 @@ namespace ToDoList.DAL.Repositories
             get { return userManager; }
         }
 
-        public IClientManager ClientManager
+        public ClientManager ClientManager
         {
             get { return clientManager; }
         }
