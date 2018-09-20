@@ -8,9 +8,10 @@ namespace ToDoList.Web.Helpers
 {
     public static class Check
     {
+        public const string Admin = "admin";
         public static bool IsAdmin(IPrincipal user)
         {
-            return user.IsInRole("admin");
+            return user.IsInRole(Admin);
         }
     }
 }
