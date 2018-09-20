@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ToDoList.Models</RootNamespace>
     <AssemblyName>ToDoList.Models</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,6 +63,7 @@
     <Compile Include="DTO\PictureDTO.cs" />
     <Compile Include="DTO\ToDoTaskDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="DTO\UserAndRoleDTO.cs" />
     <Compile Include="Entities\Identity\ApplicationRole.cs" />
     <Compile Include="Entities\Identity\ApplicationUser.cs" />
     <Compile Include="Entities\Identity\ClientProfile.cs" />

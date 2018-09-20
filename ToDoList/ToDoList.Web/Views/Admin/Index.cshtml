@@ -13,13 +13,13 @@
                 ID
             </th>
             <th>
+                Name
+            </th>
+            <th>
                 Email
             </th>
             <th>
-                Classification
-            </th>
-            <th>
-                Status
+                Role
             </th>
             <th>
                 Edit
@@ -43,23 +43,16 @@
                 },
                 columns: [
                     {
-                        data: "userName",
-                        render: function(data, type, task) {
-                            return "<a href='/tasks/" + task.id + "'>" + task.description + "</a>";
-                        }
+                        data: "id"
                     },
                     {
-                        data: "dueDateTime",
-                        render: function(data) {
-                            var date = new Date(data);
-                            return date.toDateString();
-                        }
+                        data: "name"
                     },
                     {
-                        data: "classificationName"
+                        data: "email"
                     },
                     {
-                        data: "status"
+                        data: "role"
                     },
                     {
                         data: "id",

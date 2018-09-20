@@ -18,7 +18,7 @@ namespace ToDoList.Core.Services
 {
     public class UserService : IUserService
     {
-        EFUnitOfWork Database { get; set; }
+        private EFUnitOfWork Database { get; set; }
         public UserService(EFUnitOfWork unitOfWork)
         {
             Database = unitOfWork;
@@ -27,7 +27,6 @@ namespace ToDoList.Core.Services
         {
             Database = new EFUnitOfWork();
         }
-
 
         public async Task<OperationDetails> Create(UserDTO userDto)
         {
@@ -76,10 +75,16 @@ namespace ToDoList.Core.Services
         }
 
 
-        public IEnumerable<ClientProfile> GetAllUsers()
+        public IEnumerable<UserAndRoleDTO> GetAllUsers()
         {
-            var users = Database.ClientManager.GetAllUsers();
-            return users;
+            var users = Database.UserManager.Users.ToList();
+            var roles = Database.RoleManager.Roles.ToList();
+            var usersAndRoles = users.Join(roles,
+                u => u.Roles.First().RoleId,
+                r => r.Id,
+                (u, r) => new UserAndRoleDTO(){Id = u.Id, Name = u.ClientProfile.Name, Email = u.Email, Role = r.Name}
+            );
+            return usersAndRoles;
         }
 
         public UserDTO GetUser(string id)

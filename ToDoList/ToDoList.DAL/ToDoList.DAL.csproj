@@ -59,9 +59,7 @@
     <Compile Include="EF\ToDoListContext.cs" />
     <Compile Include="Identity\ApplicationRoleManager.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
-    <Compile Include="Interfaces\IClientManager.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201809071621417_Add5Tasks.cs" />
     <Compile Include="Migrations\201809071621417_Add5Tasks.Designer.cs">
       <DependentUpon>201809071621417_Add5Tasks.cs</DependentUpon>

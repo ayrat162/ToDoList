@@ -26,7 +26,7 @@ namespace ToDoList.Web.Controllers.API
             userService = service;
         }
 
-        public IEnumerable<ClientProfile> GetUsers()
+        public IEnumerable<UserAndRoleDTO> GetUsers()
         {
             var users = userService.GetAllUsers();
             return users;

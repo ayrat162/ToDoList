@@ -10,7 +10,7 @@ using ToDoList.Models.Entities;
 
 namespace ToDoList.DAL.Repositories.Identity
 {
-    public class ClientManager : IClientManager
+    public class ClientManager
     {
         public ToDoListContext Database { get; set; }
         public ClientManager(ToDoListContext db)
@@ -26,8 +26,17 @@ namespace ToDoList.DAL.Repositories.Identity
 
         public IEnumerable<ClientProfile> GetAllUsers()
         {
+            var users = Database.Users.ToList();
+            var roles = Database.Roles.ToList();
+
             return Database.ClientProfiles.ToList();
         }
+
+        public IEnumerable<ClientProfile> GetAllRoles()
+        {
+            return Database.ClientProfiles.ToList();
+        }
+
 
 
         public void Dispose()
