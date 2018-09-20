@@ -57,7 +57,7 @@ namespace ToDoList.Web.Controllers
                     {
                         IsPersistent = true
                     }, claim);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Tasks");
                 }
             }
             return View(model);
@@ -66,7 +66,7 @@ namespace ToDoList.Web.Controllers
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Tasks");
         }
 
         public ActionResult Register()

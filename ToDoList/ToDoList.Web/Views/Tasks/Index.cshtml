@@ -4,7 +4,7 @@
 }
 <h2>Tasks List</h2>
 <p>
-    <strong>@Html.ActionLink("Create a New Task", "New", "Home")</strong>
+    <strong>@Html.ActionLink("Create a New Task", "New", "Tasks")</strong>
 </p>
 <table id="tasks" class="table table-hover table-striped">
     <thead>
@@ -38,8 +38,8 @@
         $(document).ready(function() {
             var table = $("#tasks").DataTable({
                 ajax: {
-                    url: "/api/tasks/",
-                    dataSrc: "toDoTaskDtos"
+                    url: "/api/tasksapi/",
+                    dataSrc: ""
                 },
                 columns: [
                     {

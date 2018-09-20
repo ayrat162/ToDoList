@@ -17,14 +17,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Application name", "Index", "Tasks", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Tasks")</li>
                     @if (Check.IsAdmin(User))
                     {
-                    <li>@Html.ActionLink("Admin's Link", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Admin's Link", "Index", "Tasks")</li>
                     }
                     <li>@Html.ActionLink("About", "About", "Pages")</li>
                     @* TODO: Create Contacts page *@

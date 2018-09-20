@@ -12,30 +12,28 @@ using ToDoList.Web.ViewModels;
 namespace ToDoList.Web.Controllers.API
 {
     [System.Web.Mvc.Authorize]
-    public class TasksController : ApiController
+    public class TasksApiController : ApiController
     {
         private ToDoListService toDoListService;
-        public TasksController(ToDoListService service)
+        public TasksApiController(ToDoListService service)
         {
             toDoListService = service;
         }
         ToDoListService service = new ToDoListService();
-        public TasksController()
+        public TasksApiController()
         {
             toDoListService = service;
         }
 
-        public ViewAllTasksViewModel GetTasks()
+        public IEnumerable<ToDoTaskDTO> GetTasks()
         {
             // TODO: Add Include(Classification) to the context GetToDoTasks
-            var tasksViewModel = new ViewAllTasksViewModel();
-            tasksViewModel.Classifications = toDoListService.GetClassifications();
+            var classifications = toDoListService.GetClassifications();
             var currentUserId = User.Identity.GetUserId();
             if (Check.IsAdmin(User))
-                tasksViewModel.ToDoTaskDtos = toDoListService.GetToDoTasks();
+                return toDoListService.GetToDoTasks();
             else
-                tasksViewModel.ToDoTaskDtos = toDoListService.GetToDoTasksOf(currentUserId);
-            return tasksViewModel;
+                return toDoListService.GetToDoTasksOf(currentUserId);
         }
         public ToDoTaskDTO GetTask(int id)
         {
