@@ -10,43 +10,31 @@ using ToDoList.Web.ViewModels;
 
 namespace ToDoList.Web.Controllers
 {
-    [System.Web.Mvc.Authorize]
+    [System.Web.Mvc.Authorize(Roles = Check.Admin)]
     public class AdminController : Controller
     {
-        private ToDoListService toDoListService;
-        public AdminController(ToDoListService service)
+        private UserService userService;
+        public AdminController(UserService service)
         {
-            toDoListService = service;
+            userService = service;
         }
         public AdminController()
         {
-            toDoListService = new ToDoListService();
+            userService = new UserService();
         }
 
-
-
+        [System.Web.Mvc.Route("Users")]
         public ActionResult Index()
         {
             return View();
         }
 
-        //[System.Web.Mvc.Route("Tasks/{id:regex(\\d):range(0, 1000000)}")]
-        //public ActionResult View(int id)
-        //{
-        //    var currentUserId = User.Identity.GetUserId();
-        //    var toDoTaskDto = toDoListService.GetToDoTask(id);
-        //    if (toDoTaskDto == null)
-        //        return HttpNotFound();
-        //    if (!Check.IsAdmin(User) && toDoTaskDto.UserId != currentUserId)
-        //        throw new HttpResponseException(HttpStatusCode.Forbidden);
-        //    TaskViewModel taskViewModel = new TaskViewModel
-        //    {
-        //        ToDoTaskDto = toDoTaskDto,
-        //        Classifications = toDoListService.GetClassifications(),
-        //        PictureDto = toDoListService.GetPicture(toDoTaskDto.PictureId)
-        //    };
-        //    return View(taskViewModel);
-        //}
+        [System.Web.Mvc.Route("Users/{id}")]
+        public ActionResult View(string id)
+        {
+            var user = userService.GetUser(id);
+            return View(user);
+        }
 
         //[System.Web.Mvc.HttpPost]
         //public ActionResult Save(TaskViewModel taskViewModel, HttpPostedFileBase uploadImage)
@@ -80,7 +68,7 @@ namespace ToDoList.Web.Controllers
         //    }
         //    return RedirectToAction("Index", "Tasks");
         //}
-        
+
         //[System.Web.Mvc.Route("Tasks/New")]
         //public ActionResult New()
         //{

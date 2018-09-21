@@ -87,12 +87,18 @@ namespace ToDoList.Core.Services
             return usersAndRoles;
         }
 
-        public UserDTO GetUser(string id)
+        public UserAndRoleDTO GetUser(string id)
         {
-            if (id == null) return null;
-            var user = Database.UserManager.FindById(id);
-            if (user == null) return null;
-            return Converter.Convert2Dto(user);
+            var user = Database.UserManager.Users.SingleOrDefault(u => u.Id == id);
+            var roles = Database.RoleManager.Roles.ToList();
+            var userAndRoleDto = new UserAndRoleDTO
+            {
+                Email = user.Email,
+                Id = user.Id,
+                Name = user.ClientProfile.Name,
+                Role = roles.SingleOrDefault(r => r.Id == user.Roles.First().RoleId).Name
+            };
+            return userAndRoleDto;
         }
         public IList<string> GetRoleForUser(string id)
         {

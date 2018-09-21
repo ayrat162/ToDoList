@@ -1,4 +1,4 @@
-﻿@model ToDoList.Web.ViewModels.TaskViewModel
+﻿@model ToDoList.Models.DTO.UserAndRoleDTO
 @{
     ViewBag.Title = "View";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,53 +9,32 @@
     <thead>
     <tr>
         <th>
-            Picture
+            Id
         </th>
         <th>
-            Description
+            Name
         </th>
         <th>
-            Due Date & Time
+            Email
         </th>
         <th>
-            Classification
-        </th>
-        <th>
-            Status
+            Role
         </th>
     </tr>
     </thead>
     <tbody>
     <tr>
         <td>
-            @if (@Model.PictureDto!=null)
-            {
-                @Html.Raw("<img style='width:100px; height:100px;' src=\"data:image/jpeg;base64,"
-                          + Convert.ToBase64String(Model.PictureDto.Image) + "\" />")
-            }
-            else
-            {
-                <div>N/A</div>
-            }
+            @Model.Id
         </td>
         <td>
-            @Model.ToDoTaskDto.Description
+            @Model.Name
         </td>
         <td>
-            @Model.ToDoTaskDto.DueDateTime
+            @Model.Email
         </td>
         <th>
-            @if (@Model.Classifications.SingleOrDefault(c => c.Id == Model.ToDoTaskDto.ClassificationId) != null)
-            {
-                @Model.Classifications.SingleOrDefault(c => c.Id == Model.ToDoTaskDto.ClassificationId).Name
-            }
-            else
-            {
-                @:N/A
-            }
-        </th>
-        <th>
-            @Model.ToDoTaskDto.Status
+            @Model.Role
         </th>
     </tr>
     </tbody>

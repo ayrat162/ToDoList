@@ -1,12 +1,12 @@
 ﻿@{
-    ViewBag.Title = "List of the Tasks";
+    ViewBag.Title = "List of the Users";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Tasks List</h2>
+<h2>Users List</h2>
 <p>
-    <strong>@Html.ActionLink("Create a New Task", "New", "Tasks")</strong>
+    <strong>@Html.ActionLink("Create a New User", "New", "Users")</strong>
 </p>
-<table id="tasks" class="table table-hover table-striped">
+<table id="users" class="table table-hover table-striped">
     <thead>
         <tr>
             <th>
@@ -36,14 +36,17 @@
 {
     <script>
         $(document).ready(function() {
-            var table = $("#tasks").DataTable({
+            var table = $("#users").DataTable({
                 ajax: {
                     url: "/api/adminapi/",
                     dataSrc: ""
                 },
                 columns: [
                     {
-                        data: "id"
+                        data: "id",
+                        render: function (data, type, user) {
+                            return "<a href='/Users/" + user.id + "'>" + user.id + "</a>";
+                        }
                     },
                     {
                         data: "name"
@@ -56,19 +59,19 @@
                     },
                     {
                         data: "id",
-                        render: function (data, type, task) {
-                            return "<a href='/tasks/edit/" + task.id + "'>Edit</a>";
+                        render: function (data, type, user) {
+                            return "<a href='/Users/edit/" + user.id + "'>Edit</a>";
                         }
                     },
                     {
                         data: "id",
                         render: function(data) {
-                            return "<button class='btn-link js-delete' data-task-id=" + data + ">Delete</button>";
+                            return "<button class='btn-link js-delete' data-user-id=" + data + ">Delete</button>";
                         }
                     }
                 ]
             });
-            $("#tasks").on("click",
+            $("#users").on("click",
                 ".js-delete",
                 function() {
                     var button = $(this);
@@ -76,7 +79,7 @@
                         function(result) {
                             if (result) {
                                 $.ajax({
-                                    url: "/api/tasks/" + button.attr("data-task-id"),
+                                    url: "/api/adminapi/" + button.attr("data-user-id"),
                                     method: "DELETE",
                                     success: function () {
                                         table.row(button.parents("tr")).remove().draw();
