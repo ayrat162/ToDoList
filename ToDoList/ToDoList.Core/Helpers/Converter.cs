@@ -77,5 +77,18 @@ namespace ToDoList.Core.Helpers
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ClassificationDTO, Classification>()).CreateMapper();
             return mapper.Map<ClassificationDTO, Classification>(classification);
         }
+
+        public static IEnumerable<RoleDTO> Convert2Dto(IEnumerable<ApplicationRole> roles)
+        {
+            if (roles == null) return null;
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRole, RoleDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<ApplicationRole>, IEnumerable<RoleDTO>>(roles);
+        }
+        public static RoleDTO Convert2Dto(ApplicationRole role)
+        {
+            if (role == null) return null;
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRole, RoleDTO>()).CreateMapper();
+            return mapper.Map<ApplicationRole, RoleDTO>(role);
+        }
     }
 }

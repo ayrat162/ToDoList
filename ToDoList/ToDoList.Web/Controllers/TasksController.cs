@@ -13,14 +13,10 @@ namespace ToDoList.Web.Controllers
     [System.Web.Mvc.Authorize]
     public class TasksController : Controller
     {
-        private ToDoListService toDoListService;
-        //public TasksController(ToDoListService service)
-        //{
-        //    toDoListService = service;
-        //}
+        private readonly ToDoListService _toDoListService;
         public TasksController()
         {
-            toDoListService = new ToDoListService();
+            _toDoListService = new ToDoListService();
         }
         public ActionResult Index()
         {
@@ -32,7 +28,7 @@ namespace ToDoList.Web.Controllers
         public ActionResult View(int id)
         {
             var currentUserId = User.Identity.GetUserId();
-            var toDoTaskDto = toDoListService.GetToDoTask(id);
+            var toDoTaskDto = _toDoListService.GetToDoTask(id);
             if (toDoTaskDto == null)
                 return HttpNotFound();
             if (!Check.IsAdmin(User) && toDoTaskDto.UserId != currentUserId)
@@ -40,8 +36,8 @@ namespace ToDoList.Web.Controllers
             TaskViewModel taskViewModel = new TaskViewModel
             {
                 ToDoTaskDto = toDoTaskDto,
-                Classifications = toDoListService.GetClassifications(),
-                PictureDto = toDoListService.GetPicture(toDoTaskDto.PictureId)
+                Classifications = _toDoListService.GetClassifications(),
+                PictureDto = _toDoListService.GetPicture(toDoTaskDto.PictureId)
             };
             return View(taskViewModel);
         }
@@ -57,24 +53,24 @@ namespace ToDoList.Web.Controllers
             {
                 if (picture.Image != null)
                 {
-                    var pictureId = toDoListService.AddPicture(picture);
+                    var pictureId = _toDoListService.AddPicture(picture);
                     taskViewModel.ToDoTaskDto.PictureId = pictureId;
                 }
                 taskViewModel.ToDoTaskDto.UserId = currentUserId;
-                toDoListService.AddToDoTask(taskViewModel.ToDoTaskDto);
+                _toDoListService.AddToDoTask(taskViewModel.ToDoTaskDto);
             }
             else // uploading edited item data
             {
-                var toDoTaskDto = toDoListService.GetToDoTask(taskViewModel.ToDoTaskDto.Id);
+                var toDoTaskDto = _toDoListService.GetToDoTask(taskViewModel.ToDoTaskDto.Id);
                 if (!Check.IsAdmin(User) && toDoTaskDto.UserId != currentUserId)
                     throw new HttpResponseException(HttpStatusCode.Forbidden);
                 if (picture.Image != null)
                 {
-                    var pictureId = toDoListService.AddPicture(picture);
-                    toDoListService.DeletePicture(taskViewModel.ToDoTaskDto.PictureId);
+                    var pictureId = _toDoListService.AddPicture(picture);
+                    _toDoListService.DeletePicture(taskViewModel.ToDoTaskDto.PictureId);
                     taskViewModel.ToDoTaskDto.PictureId = pictureId;
                 }
-                toDoListService.UpdateToDoTask(taskViewModel.ToDoTaskDto);
+                _toDoListService.UpdateToDoTask(taskViewModel.ToDoTaskDto);
             }
             return RedirectToAction("Index", "Tasks");
         }
@@ -84,7 +80,7 @@ namespace ToDoList.Web.Controllers
         {
             var taskViewModel = new TaskViewModel
             {
-                Classifications = toDoListService.GetClassifications()
+                Classifications = _toDoListService.GetClassifications()
             };
             return View(taskViewModel);
         }
@@ -93,7 +89,7 @@ namespace ToDoList.Web.Controllers
         public ActionResult Edit(int id)
         {
             var currentUserId = User.Identity.GetUserId();
-            var toDoTaskDto = toDoListService.GetToDoTask(id);
+            var toDoTaskDto = _toDoListService.GetToDoTask(id);
             if (toDoTaskDto == null)
                 return HttpNotFound();
             if (!Check.IsAdmin(User) && toDoTaskDto.UserId != currentUserId)
@@ -101,8 +97,8 @@ namespace ToDoList.Web.Controllers
             var taskViewModel = new TaskViewModel
             {
                 ToDoTaskDto = toDoTaskDto,
-                Classifications = toDoListService.GetClassifications(),
-                PictureDto = toDoListService.GetPicture(toDoTaskDto.PictureId)
+                Classifications = _toDoListService.GetClassifications(),
+                PictureDto = _toDoListService.GetPicture(toDoTaskDto.PictureId)
             };
             return View(taskViewModel);
         }

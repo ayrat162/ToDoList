@@ -61,6 +61,7 @@
     <Compile Include="DTO\ClassificationDTO.cs" />
     <Compile Include="DTO\ClientDTO.cs" />
     <Compile Include="DTO\PictureDTO.cs" />
+    <Compile Include="DTO\RoleDTO.cs" />
     <Compile Include="DTO\ToDoTaskDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\UserAndRoleDTO.cs" />

@@ -35,11 +35,9 @@ namespace ToDoList.Core.Services
             {
                 user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
                 var result = Database.UserManager.Create(user, userDto.Password);
-                if (result.Errors.Count() > 0)
+                if (result.Errors.Any())
                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
-                // добавляем роль
                 await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
-                // создаем профиль клиента
                 ClientProfile clientProfile = new ClientProfile { Id = user.Id, Name = userDto.Name, Email = userDto.Email };
                 Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();
@@ -82,37 +80,59 @@ namespace ToDoList.Core.Services
             var usersAndRoles = users.Join(roles,
                 u => u.Roles.First().RoleId,
                 r => r.Id,
-                (u, r) => new UserAndRoleDTO(){Id = u.Id, Name = u.ClientProfile.Name, Email = u.Email, Role = r.Name}
+                (u, r) => new UserAndRoleDTO(){
+                    Id = u.Id,
+                    Name = u.ClientProfile.Name,
+                    Email = u.Email,
+                    Role = r.Name,
+                    RoleId = r.Id
+                }
             );
             return usersAndRoles;
         }
 
         public UserAndRoleDTO GetUser(string id)
         {
-            var user = Database.UserManager.Users.SingleOrDefault(u => u.Id == id);
+            var user = Database.UserManager.Users.Single(u => u.Id == id);
+            if (user == null) return null;
             var roles = Database.RoleManager.Roles.ToList();
             var userAndRoleDto = new UserAndRoleDTO
             {
                 Email = user.Email,
                 Id = user.Id,
                 Name = user.ClientProfile.Name,
-                Role = roles.SingleOrDefault(r => r.Id == user.Roles.First().RoleId).Name
+                Role = roles.SingleOrDefault(r => r.Id == user.Roles.First().RoleId).Name,
+                RoleId = user.Roles.First().RoleId
             };
             return userAndRoleDto;
         }
-        public IList<string> GetRoleForUser(string id)
+
+        public IEnumerable<RoleDTO> GetRoles()
         {
-            if (id == null) return null;
-            var roles = Database.UserManager.GetRoles(id);
-            return roles;
+            var roles = Database.RoleManager.Roles.ToList();
+            return Converter.Convert2Dto(roles);
         }
 
-        // TODO: Implementation required
-        public void UpdateUser(UserDTO userDto)
+        public string GetRoleForUser(string id)
+        {
+            if (id == null) return null;
+            var role = Database.UserManager.GetRoles(id).First();
+            return role;
+        }
+
+        public void UpdateUser(UserAndRoleDTO userDto)
         {
             var user = Database.UserManager.FindById(userDto.Id);
-            Mapper.Map(userDto, user);
-            Database.UserManager.Update(user);
+            var roles = Database.RoleManager.Roles.ToList();
+            var currentRoles = roles.SingleOrDefault(r => r.Id == user.Roles.SingleOrDefault().RoleId).Name;
+            var newRoleName = roles.SingleOrDefault(r => r.Id == userDto.RoleId).Name;
+            user.Email = userDto.Email;
+            user.UserName = userDto.Name;
+            user.ClientProfile.Email = userDto.Email;
+            user.ClientProfile.Name = userDto.Name;
+            Database.UserManager.RemoveFromRoles(userDto.Id, currentRoles);
+            Database.Save();
+            Database.UserManager.AddToRole(userDto.Id, newRoleName);
             Database.Save();
         }
 
