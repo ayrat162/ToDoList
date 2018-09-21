@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
-using ToDoList.DAL.Entities;
+using ToDoList.Models.Entities;
 
 namespace ToDoList.DAL.Identity
 {

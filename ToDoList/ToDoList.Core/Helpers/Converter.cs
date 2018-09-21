@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ToDoList.Core.DTO;
-using ToDoList.DAL.Entities;
+using ToDoList.Models.DTO;
+using ToDoList.Models.Entities;
 
 namespace ToDoList.Core.Helpers
 {
@@ -52,14 +52,20 @@ namespace ToDoList.Core.Helpers
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, UserDTO>()).CreateMapper();
             return mapper.Map<ApplicationUser, UserDTO>(user);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
         public static IEnumerable<UserDTO> Convert2Dto(IEnumerable<ApplicationUser> users)
         {
             if (users == null) return null;
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, UserDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserDTO>>(users);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
 
         public static ToDoTask Convert2Dal(ToDoTaskDTO toDoTask)
         {

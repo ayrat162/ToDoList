@@ -3,8 +3,8 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using ToDoList.Core.DTO;
 using ToDoList.Core.Services;
+using ToDoList.Models.DTO;
 using ToDoList.Web.Helpers;
 using ToDoList.Web.ViewModels;
 
@@ -14,15 +14,23 @@ namespace ToDoList.Web.Controllers
     public class TasksController : Controller
     {
         private ToDoListService toDoListService;
+<<<<<<< HEAD:ToDoList/ToDoList.Web/Controllers/TasksController.cs
         public TasksController(ToDoListService service)
+=======
+        //public TasksController(ToDoListService service)
+        //{
+        //    toDoListService = service;
+        //}
+        public TasksController()
+>>>>>>> dev:ToDoList/ToDoList.Web/Controllers/TasksController.cs
         {
-            toDoListService = service;
+            toDoListService = new ToDoListService();
         }
-
         public ActionResult Index()
         {
             return View();
         }
+        
 
         [System.Web.Mvc.Route("Tasks/{id:regex(\\d):range(0, 1000000)}")]
         public ActionResult View(int id)

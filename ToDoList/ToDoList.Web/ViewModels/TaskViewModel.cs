@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ToDoList.Core.DTO;
+using ToDoList.Models.DTO;
 
 namespace ToDoList.Web.ViewModels
 {

@@ -1,4 +1,4 @@
-using ToDoList.DAL.Entities;
+using ToDoList.Models.Entities;
 
 namespace ToDoList.DAL.Migrations
 {

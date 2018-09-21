@@ -51,11 +51,5 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ToDoList\ToDoList.csproj">
-      <Project>{c8821b3b-804e-47fe-b6cf-f29803cc4045}</Project>
-      <Name>ToDoList</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

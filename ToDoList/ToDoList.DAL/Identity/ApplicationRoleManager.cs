@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using ToDoList.DAL.Entities;
+using ToDoList.Models.Entities;
 
 namespace ToDoList.DAL.Identity
 {

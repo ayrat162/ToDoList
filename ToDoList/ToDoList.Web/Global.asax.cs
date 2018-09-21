@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+<<<<<<< HEAD
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Mvc;
@@ -8,6 +9,9 @@ using ToDoList.Core.Infrastructure;
 using System.Web.Http;
 using System.Web.Routing;
 using ToDoList.Web.Helpers;
+=======
+using System.Web.Http;
+>>>>>>> dev
 
 namespace ToDoList.Web
 {
@@ -21,11 +25,11 @@ namespace ToDoList.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            NinjectModule toDoTaskModule = new ToDoTaskModule();
-            NinjectModule serviceModule = new ServiceModule("DefaultConnection");
-            var kernel = new StandardKernel(toDoTaskModule, serviceModule);
-            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
-            kernel.Unbind<ModelValidatorProvider>();
+            //NinjectModule toDoTaskModule = new ToDoTaskModule();
+            //NinjectModule serviceModule = new ServiceModule("DefaultConnection");
+            //var kernel = new StandardKernel(toDoTaskModule, serviceModule);
+            //DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+            //kernel.Unbind<ModelValidatorProvider>();
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configuration.EnsureInitialized();

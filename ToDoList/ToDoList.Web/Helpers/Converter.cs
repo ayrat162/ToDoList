@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using ToDoList.Core.DTO;
+using ToDoList.Models.DTO;
 using ToDoList.Web.Models;
 using ToDoList.Web.ViewModels;
 

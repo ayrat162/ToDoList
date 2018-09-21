@@ -55,11 +55,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="DTO\ClassificationDTO.cs" />
     <Compile Include="DTO\PictureDTO.cs" />
     <Compile Include="DTO\RelationshipDTO.cs" />
     <Compile Include="DTO\ToDoTaskDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+=======
+>>>>>>> dev
     <Compile Include="Helpers\Converter.cs" />
     <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
@@ -81,6 +84,10 @@
     <ProjectReference Include="..\ToDoList.DAL\ToDoList.DAL.csproj">
       <Project>{4D8DE5A8-0C2A-41D8-85B5-3A0687D708D8}</Project>
       <Name>ToDoList.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToDoList.Models\ToDoList.Models.csproj">
+      <Project>{bf48e6d3-1f18-46fa-832a-07697c7d6b56}</Project>
+      <Name>ToDoList.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

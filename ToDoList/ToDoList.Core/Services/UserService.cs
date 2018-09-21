@@ -6,24 +6,35 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+<<<<<<< HEAD
 using ToDoList.Core.DTO;
+=======
+>>>>>>> dev
 using ToDoList.Core.Helpers;
 using ToDoList.Core.Infrastructure;
 using ToDoList.Core.Interfaces;
-using ToDoList.DAL.Entities;
 using ToDoList.DAL.Interfaces;
 using ToDoList.DAL.Repositories;
+<<<<<<< HEAD
+=======
+using ToDoList.Models.DTO;
+using ToDoList.Models.Entities;
+>>>>>>> dev
 
 namespace ToDoList.Core.Services
 {
     public class UserService : IUserService
     {
-        IUnitOfWork Database { get; set; }
-        public UserService(IUnitOfWork unitOfWork)
+        private EFUnitOfWork Database { get; set; }
+        public UserService(EFUnitOfWork unitOfWork)
         {
             Database = unitOfWork;
         }
+<<<<<<< HEAD
         public UserService()
+=======
+        public UserService() 
+>>>>>>> dev
         {
             Database = new EFUnitOfWork();
         }
@@ -34,13 +45,13 @@ namespace ToDoList.Core.Services
             if (user == null)
             {
                 user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
-                var result = await Database.UserManager.CreateAsync(user, userDto.Password);
+                var result = Database.UserManager.Create(user, userDto.Password);
                 if (result.Errors.Count() > 0)
                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
                 // добавляем роль
                 await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
                 // создаем профиль клиента
-                ClientProfile clientProfile = new ClientProfile { Id = user.Id, Name = userDto.Name };
+                ClientProfile clientProfile = new ClientProfile { Id = user.Id, Name = userDto.Name, Email = userDto.Email };
                 Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();
                 return new OperationDetails(true, "Successfully registered", "");
@@ -56,7 +67,7 @@ namespace ToDoList.Core.Services
             ApplicationUser user = await Database.UserManager.FindAsync(userDto.Email, userDto.Password);
             if (user != null)
                 claim = await Database.UserManager.CreateIdentityAsync(user,
-                                            DefaultAuthenticationTypes.ApplicationCookie);
+                    DefaultAuthenticationTypes.ApplicationCookie);
             return claim;
         }
 
@@ -74,6 +85,7 @@ namespace ToDoList.Core.Services
             await Create(adminDto);
         }
 
+<<<<<<< HEAD
         public IEnumerable<UserDTO> GetAllUsers()
         {
             var users = Database.UserManager.Users.ToList();
@@ -86,6 +98,33 @@ namespace ToDoList.Core.Services
             var user = Database.UserManager.FindById(id);
             if (user == null) return null;
             return Converter.Convert2Dto(user);
+=======
+
+        public IEnumerable<UserAndRoleDTO> GetAllUsers()
+        {
+            var users = Database.UserManager.Users.ToList();
+            var roles = Database.RoleManager.Roles.ToList();
+            var usersAndRoles = users.Join(roles,
+                u => u.Roles.First().RoleId,
+                r => r.Id,
+                (u, r) => new UserAndRoleDTO(){Id = u.Id, Name = u.ClientProfile.Name, Email = u.Email, Role = r.Name}
+            );
+            return usersAndRoles;
+        }
+
+        public UserAndRoleDTO GetUser(string id)
+        {
+            var user = Database.UserManager.Users.SingleOrDefault(u => u.Id == id);
+            var roles = Database.RoleManager.Roles.ToList();
+            var userAndRoleDto = new UserAndRoleDTO
+            {
+                Email = user.Email,
+                Id = user.Id,
+                Name = user.ClientProfile.Name,
+                Role = roles.SingleOrDefault(r => r.Id == user.Roles.First().RoleId).Name
+            };
+            return userAndRoleDto;
+>>>>>>> dev
         }
         public IList<string> GetRoleForUser(string id)
         {
@@ -115,6 +154,10 @@ namespace ToDoList.Core.Services
             Database.Save();
         }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
         public void Dispose()
         {
             Database.Dispose();
