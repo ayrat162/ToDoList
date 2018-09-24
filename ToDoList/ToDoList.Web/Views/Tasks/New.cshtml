@@ -28,6 +28,10 @@
         @Html.DropDownListFor(m => m.ToDoTaskDto.ClassificationId, new SelectList(Model.Classifications, "Id", "Name"), "", new {@class = "form-control"})
     </div>
     <div class="form-group">
+        @Html.LabelFor(m => m.ToDoTaskDto.UserId)
+        @Html.DropDownListFor(m => m.ToDoTaskDto.UserId, new SelectList(Model.Users, "Id", "Name"), "", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
         <div>Upload File</div>
         <div>
             <input type="file" name="uploadImage"/>

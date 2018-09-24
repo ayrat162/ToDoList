@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Owin.Security.DataProtection;
 using ToDoList.Core.Helpers;
 using ToDoList.Core.Infrastructure;
 using ToDoList.Core.Interfaces;
@@ -13,6 +14,8 @@ using ToDoList.DAL.Interfaces;
 using ToDoList.DAL.Repositories;
 using ToDoList.Models.DTO;
 using ToDoList.Models.Entities;
+using Microsoft.AspNet.Identity.Owin;
+
 
 namespace ToDoList.Core.Services
 {
@@ -165,6 +168,20 @@ namespace ToDoList.Core.Services
             if (user != null)
             {
                 Database.UserManager.Delete(user);
+            }
+            Database.Save();
+        }
+
+        public void ResetPassword(string userId)
+        {
+            var user = Database.UserManager.FindById(userId);
+            var provider = new DpapiDataProtectionProvider("ToDoList");
+            Database.UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(
+                provider.Create("ResetPasswordPurpose"));
+            var token = Database.UserManager.GeneratePasswordResetToken(userId);
+            if (user != null)
+            {
+                Database.UserManager.ResetPassword(userId: userId, token: token, newPassword: "qwerty");
             }
             Database.Save();
         }

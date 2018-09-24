@@ -95,5 +95,15 @@ namespace ToDoList.Web.Controllers
             userService.Create(user);
             return RedirectToAction("AllUsers", "Users");
         }
+
+        [System.Web.Mvc.Route("Users/ResetPass/{userId}")]
+        public ActionResult ChangePassword(string userId)
+        {
+            var user = userService.GetUser(userId);
+            if (user == null) return HttpNotFound();
+            userService.ResetPassword(userId);
+            return RedirectToAction("AllUsers", "Users");
+        }
+
     }
 }

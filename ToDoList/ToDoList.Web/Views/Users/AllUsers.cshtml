@@ -1,4 +1,5 @@
-﻿@{
+﻿@using ToDoList.Web.Helpers
+@{
     ViewBag.Title = "List of the Users";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -25,6 +26,9 @@
                 Edit
             </th>
             <th>
+                Reset Pass
+            </th>
+            <th>
                 Delete
             </th>
         </tr>
@@ -34,7 +38,7 @@
 
 @section scripts
 {
-    <script>
+<script>
         $(document).ready(function() {
             var table = $("#users").DataTable({
                 ajax: {
@@ -60,7 +64,13 @@
                     {
                         data: "id",
                         render: function (data, type, user) {
-                            return "<a href='/Users/edit/" + user.id + "'>Edit</a>";
+                            return "<a href='/Users/Edit/" + user.id + "'>Edit</a>";
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function (data, type, user) {
+                            return "<a href='/Users/ResetPass/" + user.id + "'>Reset</a>";
                         }
                     },
                     {
@@ -89,6 +99,6 @@
                         });
                 });
         })
-    </script>
+</script>
 
 }
