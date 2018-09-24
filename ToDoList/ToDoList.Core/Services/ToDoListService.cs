@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using ToDoList.Core.Helpers;
 using ToDoList.Core.Interfaces;
@@ -78,6 +80,26 @@ namespace ToDoList.Core.Services
             return Converter.Convert2Dto(tasksOfUser);
         }
 
+        public IEnumerable<ToDoTaskDTO> GetOldTasks()
+        {
+            var tasks = Database.ToDoTasks.Find(t => t.DueDateTime < DateTime.Now);
+            var users = Database.UserManager.Users.ToList();
+            var tasksDto = tasks.Join(
+                users,
+                t => t.UserId,
+                u => u.Id,
+                (t, u) => new ToDoTaskDTO()
+                {
+                    Description = t.Description,
+                    DueDateTime = t.DueDateTime,
+                    Status = t.Status,
+                    UserName = u.ClientProfile.Name,
+                    UserEmail = u.Email
+                }
+            );
+            return tasksDto;
+        }
+
         public void UpdateClassification(ClassificationDTO classificationDto)
         {
             var classification = Database.Classifications.Get(classificationDto.Id);
@@ -101,10 +123,6 @@ namespace ToDoList.Core.Services
             Database.Save();
         }
 
-        public void Dispose()
-        {
-            Database.Dispose();
-        }
 
         public void DeleteToDoTask(int? id)
         {
@@ -127,5 +145,10 @@ namespace ToDoList.Core.Services
                 Database.Pictures.Delete(id.Value);
             }
         }
+        public void Dispose()
+        {
+            Database.Dispose();
+        }
+
     }
 }

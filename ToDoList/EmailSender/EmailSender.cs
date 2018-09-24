@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EmailSender.Handlers;
-using DateTime = System.DateTime;
+﻿using ToDoList.Core.Services;
+using static EmailService.EmailService;
 
 namespace EmailSender
 {
-    class EmailSender
+    public class EmailSender
     {
         static void Main(string[] args)
         {
-            //var text = "";
-            //Repository.Connect();
-            //foreach (var toDoTask in Repository.GetTasks())
-            //{
-            //    text += $"<p>{DateTime.Now} : {toDoTask.Description}</p>";
-            //}
-            //EmailHandler.SendMessage(text);
+            var toDoListService = new ToDoListService();
+            var tasks = toDoListService.GetOldTasks();
+            foreach (var task in tasks)
+            {
+                SendFakeMessage(Helper.CompileEmail(task));
+            }
         }
     }
 }
