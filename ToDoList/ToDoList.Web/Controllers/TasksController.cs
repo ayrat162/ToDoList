@@ -22,6 +22,7 @@ namespace ToDoList.Web.Controllers
         #endregion
 
         [System.Web.Mvc.Route("Tasks")]
+        [System.Web.Mvc.Route("")]
         public ActionResult Index()
         {
             return View();

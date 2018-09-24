@@ -14,7 +14,6 @@ namespace ToDoList.Models.DTO
         public string Email { get; set; }
         public string Role { get; set; }
         public string RoleId { get; set; }
-        [StringLength(maximumLength:30, MinimumLength = 6)]
         public string Password { get; set; }
     }
 }

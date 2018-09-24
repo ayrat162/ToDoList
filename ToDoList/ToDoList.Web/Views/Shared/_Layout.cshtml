@@ -24,7 +24,7 @@
                     <li>@Html.ActionLink("Home", "Index", "Tasks")</li>
                     @if (Check.IsAdmin(User))
                     {
-                    <li>@Html.ActionLink("Admin's Link", "Index", "Tasks")</li>
+                    <li>@Html.ActionLink("Users", "AllUsers", "Users")</li>
                     }
                     <li>@Html.ActionLink("About", "About", "Pages")</li>
                     @* TODO: Create Contacts page *@

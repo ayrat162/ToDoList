@@ -13,10 +13,11 @@ namespace ToDoList.Web.ViewModels
         [Required(ErrorMessage = "Required")]
         public string Name { get; set; }
 
+        [EmailAddress(ErrorMessage = "The email format is not valid")]
         [Required(ErrorMessage = "Required")]
         public string Email { get; set; }
 
-        [RegularExpression(@"^.{8,}$", ErrorMessage = "Minimum 6 characters required")]
+        [RegularExpression(@"^.{6,}$", ErrorMessage = "Minimum 6 characters required")]
         [Required(ErrorMessage = "Required")]
         [StringLength(30, MinimumLength = 6, ErrorMessage = "Invalid")]
         public string Password { get; set; }
