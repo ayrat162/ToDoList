@@ -15,9 +15,11 @@ namespace ToDoList.Web.Controllers
     {
         #region services definition
         private readonly ToDoListService _toDoListService;
+        private readonly UserService _userService;
         public TasksController()
         {
             _toDoListService = new ToDoListService();
+            _userService = new UserService();
         }
         #endregion
 
@@ -64,7 +66,7 @@ namespace ToDoList.Web.Controllers
                 taskViewModel.ToDoTaskDto.UserId = currentUserId;
                 _toDoListService.AddToDoTask(taskViewModel.ToDoTaskDto);
             }
-            else // uploading edited item data
+            else // updating existing item
             {
                 var toDoTaskDto = _toDoListService.GetToDoTask(taskViewModel.ToDoTaskDto.Id);
                 if (!Check.IsAdmin(User) && toDoTaskDto.UserId != currentUserId)
@@ -85,7 +87,8 @@ namespace ToDoList.Web.Controllers
         {
             var taskViewModel = new TaskViewModel
             {
-                Classifications = _toDoListService.GetClassifications()
+                Classifications = _toDoListService.GetClassifications(),
+                Users = _userService.GetAllUsers()
             };
             return View(taskViewModel);
         }
@@ -103,7 +106,8 @@ namespace ToDoList.Web.Controllers
             {
                 ToDoTaskDto = toDoTaskDto,
                 Classifications = _toDoListService.GetClassifications(),
-                PictureDto = _toDoListService.GetPicture(toDoTaskDto.PictureId)
+                PictureDto = _toDoListService.GetPicture(toDoTaskDto.PictureId),
+                Users = _userService.GetAllUsers()
             };
             return View(taskViewModel);
         }

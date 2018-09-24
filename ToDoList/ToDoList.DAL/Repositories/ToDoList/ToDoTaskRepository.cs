@@ -21,8 +21,14 @@ namespace ToDoList.DAL.Repositories
         }
         public IEnumerable<ToDoTask> GetAll()
         {
-            return db.ToDoTasks.Include(t=>t.User);
+            return db.ToDoTasks.Include(t => t.Classification).Include(t => t.ConnectedToDoTask).Include(t => t.User);
         }
+
+        //public IEnumerable<ToDoTask> GetAllWithExtras()
+        //{
+        //    return db.ToDoTasks.Include(t => t.Classification).Include(t => t.ConnectedToDoTask);
+        //}
+
         public ToDoTask Get(int id)
         {
             return db.ToDoTasks.Include(t=>t.User).SingleOrDefault(t=>t.Id==id);

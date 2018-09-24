@@ -13,7 +13,7 @@ namespace ToDoList.Models.DTO
         public string ConnectedTaskName { get; set; }
         public int? ConnectedToDoTaskId { get; set; }
         public int? PictureId { get; set; }
-        public string UserName { get; set; }
+        public string UserUserName { get; set; }
         public string UserId { get; set; }
         public string UserEmail { get; set; }
     }

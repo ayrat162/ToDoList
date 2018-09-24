@@ -16,7 +16,7 @@ namespace EmailSender
             var sb = new StringBuilder();
             sb.AppendLine("Email: " + task.UserEmail);
             sb.AppendLine("Description: " + task.Description);
-            sb.AppendLine("User Name " + task.UserName);
+            sb.AppendLine("User Name " + task.UserUserName);
             sb.AppendLine("Due DateTime: " + task.DueDateTime);
             sb.AppendLine();
             return sb.ToString();

@@ -93,7 +93,7 @@ namespace ToDoList.Core.Services
                     Description = t.Description,
                     DueDateTime = t.DueDateTime,
                     Status = t.Status,
-                    UserName = u.ClientProfile.Name,
+                    UserUserName = u.ClientProfile.Name,
                     UserEmail = u.Email
                 }
             );

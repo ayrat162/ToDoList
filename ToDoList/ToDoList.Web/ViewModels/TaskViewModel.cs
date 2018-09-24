@@ -9,6 +9,7 @@ namespace ToDoList.Web.ViewModels
     public class TaskViewModel
     {
         public IEnumerable<ClassificationDTO> Classifications { get; set; }
+        public IEnumerable<UserAndRoleDTO> Users { get; set; }
         public ToDoTaskDTO ToDoTaskDto { get; set; }
         public PictureDTO PictureDto { get; set; }
     }
