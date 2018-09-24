@@ -1,40 +1,39 @@
-﻿@model ToDoList.Web.ViewModels.TaskViewModel
+﻿@model ToDoList.Web.ViewModels.UserViewModel
 @{
     ViewBag.Title = "New ToDo Task";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Task</h2>
+<h2>Edit User Information</h2>
 
-@using (Html.BeginForm("Save", "Tasks", FormMethod.Post, new {enctype = "multipart/form-data"}))
+@using (Html.BeginForm("SaveNewUser", "Users", FormMethod.Post))
 {
     <div class="form-group">
-        @Html.LabelFor(m => m.ToDoTaskDto.Description)
-        @Html.TextBoxFor(m => m.ToDoTaskDto.Description, new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.ToDoTaskDto.Description)
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, "{0:d MMM yyyy H:mm:ss}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ToDoTaskDto.DueDateTime)
-        @Html.TextBoxFor(m => m.ToDoTaskDto.DueDateTime, "{0:d MMM yyyy H:mm:ss}", new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.ToDoTaskDto.DueDateTime)
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Email)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ToDoTaskDto.Status)
-        @Html.TextBoxFor(m => m.ToDoTaskDto.Status, new {@class = "form-control"})
-        @Html.ValidationMessageFor(m => m.ToDoTaskDto.Status)
+        @Html.LabelFor(m => m.RoleId)
+        @Html.DropDownListFor(m => m.RoleId, new SelectList(Model.Roles, "Id", "Name"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.RoleId)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ToDoTaskDto.ClassificationId)
-        @Html.DropDownListFor(m => m.ToDoTaskDto.ClassificationId, new SelectList(Model.Classifications, "Id", "Name"), "", new {@class = "form-control"})
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Password)
     </div>
-    <div class="form-group">
-        <div>Upload File</div>
-        <div>
-            <input type="file" name="uploadImage"/>
-        </div>
-    </div>
-    @Html.HiddenFor(m => m.ToDoTaskDto.Id)
-    @Html.HiddenFor(m => m.ToDoTaskDto.PictureId)
-    @Html.HiddenFor(m => m.ToDoTaskDto.UserId)
+    @Html.HiddenFor(m => m.RoleId)
+    @Html.HiddenFor(m => m.Id)
     <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
 }

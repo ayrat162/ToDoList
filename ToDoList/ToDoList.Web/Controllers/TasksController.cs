@@ -13,16 +13,19 @@ namespace ToDoList.Web.Controllers
     [System.Web.Mvc.Authorize]
     public class TasksController : Controller
     {
+        #region services definition
         private readonly ToDoListService _toDoListService;
         public TasksController()
         {
             _toDoListService = new ToDoListService();
         }
+        #endregion
+
+        [System.Web.Mvc.Route("Tasks")]
         public ActionResult Index()
         {
             return View();
         }
-        
 
         [System.Web.Mvc.Route("Tasks/{id:regex(\\d):range(0, 1000000)}")]
         public ActionResult View(int id)
@@ -42,6 +45,7 @@ namespace ToDoList.Web.Controllers
             return View(taskViewModel);
         }
 
+        [System.Web.Mvc.Route("Tasks/Save")]
         [System.Web.Mvc.HttpPost]
         public ActionResult Save(TaskViewModel taskViewModel, HttpPostedFileBase uploadImage)
         {

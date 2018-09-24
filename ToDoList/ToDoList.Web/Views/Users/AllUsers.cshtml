@@ -38,7 +38,7 @@
         $(document).ready(function() {
             var table = $("#users").DataTable({
                 ajax: {
-                    url: "/api/adminapi/",
+                    url: "/api/users/",
                     dataSrc: ""
                 },
                 columns: [
@@ -79,7 +79,7 @@
                         function(result) {
                             if (result) {
                                 $.ajax({
-                                    url: "/api/adminapi/" + button.attr("data-user-id"),
+                                    url: "/api/users/" + button.attr("data-user-id"),
                                     method: "DELETE",
                                     success: function () {
                                         table.row(button.parents("tr")).remove().draw();

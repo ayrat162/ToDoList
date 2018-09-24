@@ -14,6 +14,7 @@ namespace ToDoList.Web.Controllers.API
     [System.Web.Mvc.Authorize]
     public class TasksApiController : ApiController
     {
+        #region services definition
         private ToDoListService toDoListService;
         public TasksApiController(ToDoListService service)
         {
@@ -24,7 +25,11 @@ namespace ToDoList.Web.Controllers.API
         {
             toDoListService = service;
         }
+        #endregion
 
+
+        [Route("api/tasks")]
+        [HttpGet]
         public IEnumerable<ToDoTaskDTO> GetTasks()
         {
             // TODO: Add Include(Classification) to the context GetToDoTasks
@@ -35,6 +40,9 @@ namespace ToDoList.Web.Controllers.API
             else
                 return toDoListService.GetToDoTasksOf(currentUserId);
         }
+
+        [Route("api/tasks/{id}")]
+        [HttpGet]
         public ToDoTaskDTO GetTask(int id)
         {
             var currentUserId = User.Identity.GetUserId();
@@ -45,6 +53,8 @@ namespace ToDoList.Web.Controllers.API
                 throw new HttpResponseException(HttpStatusCode.Forbidden);
             return toDoTaskDto;
         }
+
+        [Route("api/tasks/create")]
         [HttpPost]
         public IHttpActionResult CreateTask(ToDoTaskDTO toDoTaskDto)
         {
@@ -53,6 +63,8 @@ namespace ToDoList.Web.Controllers.API
             var newTaskId = toDoListService.AddToDoTask(toDoTaskDto);
             return Created(new Uri(Request.RequestUri + "/" + newTaskId), toDoListService.GetToDoTask(newTaskId));
         }
+
+        [Route("api/tasks/{id}")]
         [HttpPut]
         public ToDoTaskDTO UpdateTask(int id, ToDoTaskDTO toDoTaskDto)
         {
@@ -64,6 +76,8 @@ namespace ToDoList.Web.Controllers.API
             toDoListService.UpdateToDoTask(toDoTaskDto);
             return toDoListService.GetToDoTask(id);
         }
+
+        [Route("api/tasks/{id}")]
         [HttpDelete]
         public void DeleteTask(int id)
         {

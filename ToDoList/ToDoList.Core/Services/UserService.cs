@@ -48,6 +48,29 @@ namespace ToDoList.Core.Services
                 return new OperationDetails(false, "User with this email already exists", "Email");
             }
         }
+
+        public OperationDetails Create(UserAndRoleDTO userAndRoleDto)
+        {
+            var user = Database.UserManager.FindByEmail(userAndRoleDto.Email);
+            if (user == null)
+            {
+                user = new ApplicationUser { Email = userAndRoleDto.Email, UserName = userAndRoleDto.Email };
+                var result = Database.UserManager.Create(user, userAndRoleDto.Password);
+                if (result.Errors.Any())
+                    return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
+                Database.UserManager.AddToRole(user.Id, userAndRoleDto.Role);
+                var clientProfile = new ClientProfile { Id = user.Id, Name = userAndRoleDto.Name, Email = userAndRoleDto.Email };
+                Database.ClientManager.Create(clientProfile);
+                Database.Save();
+                return new OperationDetails(true, "Successfully registered", "");
+            }
+            else
+            {
+                return new OperationDetails(false, "User with this email already exists", "Email");
+            }
+        }
+
+
         public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
         {
             ClaimsIdentity claim = null;
@@ -141,8 +164,6 @@ namespace ToDoList.Core.Services
             var user = Database.UserManager.FindById(id);
             if (user != null)
             {
-                // TODO: Implement Delete for ClientManager
-                // Database.ClientManager.Delete(id);
                 Database.UserManager.Delete(user);
             }
             Database.Save();

@@ -16,6 +16,7 @@ namespace ToDoList.Web.Controllers
 {
     public class AccountController : Controller
     {
+        #region services definition
         private IUserService UserService
         {
             get
@@ -31,6 +32,8 @@ namespace ToDoList.Web.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+
+        #endregion
 
         public ActionResult Login()
         {

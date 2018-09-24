@@ -15,13 +15,6 @@ namespace ToDoList.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //NinjectModule toDoTaskModule = new ToDoTaskModule();
-            //NinjectModule serviceModule = new ServiceModule("DefaultConnection");
-            //var kernel = new StandardKernel(toDoTaskModule, serviceModule);
-            //DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
-            //kernel.Unbind<ModelValidatorProvider>();
-
-            AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configuration.EnsureInitialized();
         }
     }
