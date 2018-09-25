@@ -65,6 +65,7 @@
     <Compile Include="DTO\ToDoTaskDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\UserAndRoleDTO.cs" />
+    <Compile Include="Entities\Identity\Relationship.cs" />
     <Compile Include="Entities\Identity\ApplicationRole.cs" />
     <Compile Include="Entities\Identity\ApplicationUser.cs" />
     <Compile Include="Entities\Identity\ClientProfile.cs" />

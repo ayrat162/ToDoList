@@ -21,5 +21,7 @@ namespace ToDoList.Models.Entities
 
         public ApplicationUser User { get; set; }
         public string UserId { get; set; }
+
+        public bool IsApproved { get; set; }
     }
 }

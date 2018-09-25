@@ -7,8 +7,6 @@ namespace ToDoList.Models.Entities
         public int Id { get; set; }
         public string Name { get; set; }
 
-        //[Required]
-        //public ApplicationUser User { get; set; }
-        //public string UserId { get; set; }
+        // TODO: User for classification can be defined
     }
 }

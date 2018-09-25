@@ -96,6 +96,14 @@
     <Compile Include="Migrations\201809201048333_DevBranchAdded.Designer.cs">
       <DependentUpon>201809201048333_DevBranchAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809250851257_AddedRelationships.cs" />
+    <Compile Include="Migrations\201809250851257_AddedRelationships.Designer.cs">
+      <DependentUpon>201809250851257_AddedRelationships.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809250926577_AddedIsApprovedToToDOTasks.cs" />
+    <Compile Include="Migrations\201809250926577_AddedIsApprovedToToDOTasks.Designer.cs">
+      <DependentUpon>201809250926577_AddedIsApprovedToToDOTasks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Identity\ClientManager.cs" />
@@ -131,6 +139,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809201048333_DevBranchAdded.resx">
       <DependentUpon>201809201048333_DevBranchAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809250851257_AddedRelationships.resx">
+      <DependentUpon>201809250851257_AddedRelationships.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809250926577_AddedIsApprovedToToDOTasks.resx">
+      <DependentUpon>201809250926577_AddedIsApprovedToToDOTasks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
