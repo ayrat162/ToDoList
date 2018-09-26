@@ -18,6 +18,7 @@ namespace ToDoList.DAL.Repositories
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
         private ClientManager clientManager;
+        private RelationshipRepository relationshipRepository;
 
         public EFUnitOfWork()
         {
@@ -54,6 +55,17 @@ namespace ToDoList.DAL.Repositories
                 return pictureRepository;
             }
         }
+        public IRepository<Relationship> Relationships
+        {
+            get
+            {
+                if (relationshipRepository == null)
+                    relationshipRepository = new RelationshipRepository(db);
+                return relationshipRepository;
+            }
+        }
+
+
         public ApplicationUserManager UserManager
         {
             get { return userManager; }
@@ -79,8 +91,9 @@ namespace ToDoList.DAL.Repositories
             db.SaveChanges();
         }
 
-        private bool disposed = false;
 
+        #region dispose
+        private bool disposed = false;
         public virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
@@ -92,11 +105,11 @@ namespace ToDoList.DAL.Repositories
                 this.disposed = true;
             }
         }
-
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+        #endregion
     }
 }

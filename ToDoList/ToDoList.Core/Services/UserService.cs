@@ -15,12 +15,14 @@ using ToDoList.DAL.Repositories;
 using ToDoList.Models.DTO;
 using ToDoList.Models.Entities;
 using Microsoft.AspNet.Identity.Owin;
+using ToDoList.Models;
 
 
 namespace ToDoList.Core.Services
 {
     public class UserService : IUserService
     {
+        #region UnitOfWork definitions
         private EFUnitOfWork Database { get; set; }
         public UserService(EFUnitOfWork unitOfWork)
         {
@@ -30,7 +32,9 @@ namespace ToDoList.Core.Services
         {
             Database = new EFUnitOfWork();
         }
+        #endregion
 
+        #region methods for Create
         public async Task<OperationDetails> Create(UserDTO userDto)
         {
             ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
@@ -73,31 +77,9 @@ namespace ToDoList.Core.Services
             }
         }
 
+        #endregion
 
-        public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
-        {
-            ClaimsIdentity claim = null;
-            ApplicationUser user = await Database.UserManager.FindAsync(userDto.Email, userDto.Password);
-            if (user != null)
-                claim = await Database.UserManager.CreateIdentityAsync(user,
-                    DefaultAuthenticationTypes.ApplicationCookie);
-            return claim;
-        }
-
-        public async Task SetInitialData(UserDTO adminDto, List<string> roles)
-        {
-            foreach (string roleName in roles)
-            {
-                var role = await Database.RoleManager.FindByNameAsync(roleName);
-                if (role == null)
-                {
-                    role = new ApplicationRole { Name = roleName };
-                    await Database.RoleManager.CreateAsync(role);
-                }
-            }
-            await Create(adminDto);
-        }
-
+        #region methods for Get
 
         public IEnumerable<UserAndRoleDTO> GetAllUsers()
         {
@@ -133,10 +115,26 @@ namespace ToDoList.Core.Services
             return userAndRoleDto;
         }
 
+        public IEnumerable<UserDTO> GetBosses(string userId)
+        {
+            var user = Database.UserManager.Users.SingleOrDefault(u => u.Id == userId);
+            if (user == null) return null;
+            var relationshipsOfUser = Database.Relationships.Find(r => r.ChildId == userId);
+            var bosses = relationshipsOfUser.Select(r => r.Boss);
+            return Converter.Convert2Dto(bosses);
+        }
+
         public IEnumerable<RoleDTO> GetRoles()
         {
-            var roles = Database.RoleManager.Roles.ToList();
+            var roles = Database.RoleManager.Roles;
             return Converter.Convert2Dto(roles);
+        }
+
+        public IEnumerable<string> GetAdminIds()
+        {
+            var adminUsers = Database.RoleManager.Roles.Single(r => r.Name == RoleNames.Admin).Users;
+            var adminUserIds = adminUsers.Select(u => u.UserId);
+            return adminUserIds;
         }
 
         public string GetRoleForUser(string id)
@@ -146,6 +144,32 @@ namespace ToDoList.Core.Services
             return role;
         }
 
+        #endregion
+
+        public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
+        {
+            ClaimsIdentity claim = null;
+            ApplicationUser user = await Database.UserManager.FindAsync(userDto.Email, userDto.Password);
+            if (user != null)
+                claim = await Database.UserManager.CreateIdentityAsync(user,
+                    DefaultAuthenticationTypes.ApplicationCookie);
+            return claim;
+        }
+
+        public async Task SetInitialData(UserDTO adminDto, List<string> roles)
+        {
+            foreach (string roleName in roles)
+            {
+                var role = await Database.RoleManager.FindByNameAsync(roleName);
+                if (role == null)
+                {
+                    role = new ApplicationRole { Name = roleName };
+                    await Database.RoleManager.CreateAsync(role);
+                }
+            }
+            await Create(adminDto);
+        }
+        
         public void UpdateUser(UserAndRoleDTO userDto)
         {
             var user = Database.UserManager.FindById(userDto.Id);
@@ -185,7 +209,6 @@ namespace ToDoList.Core.Services
             }
             Database.Save();
         }
-
 
         public void Dispose()
         {

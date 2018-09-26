@@ -107,6 +107,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Identity\ClientManager.cs" />
+    <Compile Include="Repositories\ToDoList\RelationshipRepository.cs" />
     <Compile Include="Repositories\ToDoList\ClassificationRepository.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
     <Compile Include="Repositories\ToDoList\PictureRepository.cs" />

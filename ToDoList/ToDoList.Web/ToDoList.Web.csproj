@@ -187,7 +187,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Check.cs" />
-    <Compile Include="Helpers\Converter.cs" />
+    <Compile Include="Helpers\Convert.cs" />
     <Compile Include="Models\ClassificationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PictureModel.cs" />

@@ -1,5 +1,5 @@
 ﻿using ToDoList.Core.Services;
-using static EmailService.EmailService;
+using static EmailService.Sender;
 
 namespace EmailSender
 {

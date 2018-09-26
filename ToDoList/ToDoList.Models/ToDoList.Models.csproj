@@ -73,6 +73,7 @@
     <Compile Include="Entities\ToDoTasks\Picture.cs" />
     <Compile Include="Entities\ToDoTasks\ToDoTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\RoleNames.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

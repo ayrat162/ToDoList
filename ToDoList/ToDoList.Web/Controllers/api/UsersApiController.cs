@@ -2,12 +2,13 @@
 using System.Net;
 using System.Web.Http;
 using ToDoList.Core.Services;
+using ToDoList.Models;
 using ToDoList.Models.DTO;
 using ToDoList.Web.Helpers;
 
 namespace ToDoList.Web.Controllers.API
 {
-    [System.Web.Mvc.Authorize(Roles = Check.Admin)]
+    [System.Web.Mvc.Authorize(Roles = RoleNames.Admin)]
     public class UsersApiController : ApiController
     {
         #region services definition

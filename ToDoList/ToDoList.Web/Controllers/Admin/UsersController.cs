@@ -6,13 +6,14 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using ToDoList.Core.Services;
+using ToDoList.Models;
 using ToDoList.Models.DTO;
 using ToDoList.Web.Helpers;
 using ToDoList.Web.ViewModels;
 
 namespace ToDoList.Web.Controllers
 {
-    [System.Web.Mvc.Authorize(Roles = Check.Admin)]
+    [System.Web.Mvc.Authorize(Roles = RoleNames.Admin)]
     public class UsersController : Controller
     {
         #region service definitions
@@ -91,7 +92,7 @@ namespace ToDoList.Web.Controllers
         public ActionResult SaveNewUser(UserAndRoleDTO user)
         {
             if (user.Role == null)
-                user.Role = Check.DefaultUser;
+                user.Role = RoleNames.DefaultUser;
             userService.Create(user);
             return RedirectToAction("AllUsers", "Users");
         }

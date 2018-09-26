@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\Converter.cs" />
+    <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
@@ -93,10 +94,12 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="BusinessModels\" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\EmailService\EmailService.csproj">
+      <Project>{7E887685-AEFF-4852-8726-830DEF8807A2}</Project>
+      <Name>EmailService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ToDoList.DAL\ToDoList.DAL.csproj">
       <Project>{4D8DE5A8-0C2A-41D8-85B5-3A0687D708D8}</Project>
       <Name>ToDoList.DAL</Name>

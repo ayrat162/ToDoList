@@ -14,40 +14,42 @@ namespace ToDoList.DAL.Repositories
 {
     public class ToDoTaskRepository: IRepository<ToDoTask>
     {
+        #region defining context
         private ToDoListContext db;
         public ToDoTaskRepository(ToDoListContext context)
         {
             this.db = context;
         }
+        #endregion 
+
         public IEnumerable<ToDoTask> GetAll()
         {
             return db.ToDoTasks.Include(t => t.Classification).Include(t => t.ConnectedToDoTask).Include(t => t.User);
         }
 
-        //public IEnumerable<ToDoTask> GetAllWithExtras()
-        //{
-        //    return db.ToDoTasks.Include(t => t.Classification).Include(t => t.ConnectedToDoTask);
-        //}
-
         public ToDoTask Get(int id)
         {
             return db.ToDoTasks.Include(t=>t.User).SingleOrDefault(t=>t.Id==id);
         }
+
         public ToDoTask Create(ToDoTask toDoTask)
         {
             var newToDoTask = db.ToDoTasks.Add(toDoTask);
             db.SaveChanges();
             return newToDoTask;
         }
+
         public void Update(ToDoTask toDoTask)
         {
             db.Entry(toDoTask).State = EntityState.Modified;
             db.SaveChanges();
         }
+
         public IEnumerable<ToDoTask> Find(Func<ToDoTask, Boolean> predicate)
         {
             return db.ToDoTasks.Where(predicate).ToList();
         }
+
         public void Delete(int id)
         {
             var toDoTask = db.ToDoTasks.Find(id);
