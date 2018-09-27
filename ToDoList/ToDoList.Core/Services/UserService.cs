@@ -124,6 +124,15 @@ namespace ToDoList.Core.Services
             return Converter.Convert2Dto(bosses);
         }
 
+        public IEnumerable<UserDTO> GetChildren(string userId)
+        {
+            var user = Database.UserManager.Users.SingleOrDefault(u => u.Id == userId);
+            if (user == null) return null;
+            var relationshipsOfUser = Database.Relationships.Find(r => r.BossId == userId);
+            var children = relationshipsOfUser.Select(r => r.Child);
+            return Converter.Convert2Dto(children);
+        }
+
         public IEnumerable<RoleDTO> GetRoles()
         {
             var roles = Database.RoleManager.Roles;

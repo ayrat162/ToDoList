@@ -2,6 +2,7 @@
 using EmailService;
 using ToDoList.Core.Services;
 using ToDoList.Models.DTO;
+using System.Collections.Generic;
 
 namespace ToDoList.Core.Helpers
 {
@@ -45,6 +46,13 @@ namespace ToDoList.Core.Helpers
             if (adminIds.Contains(userId)) return true;
 
             return false;
+        }
+
+        public static IEnumerable<string> ChildrenIdsOf(string userId)
+        {
+            var userService = new UserService();
+            var bossIds = userService.GetChildren(userId).Select(child => child.Id);
+            return bossIds;
         }
     }
 }

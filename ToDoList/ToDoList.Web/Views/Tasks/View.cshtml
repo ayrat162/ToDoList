@@ -23,6 +23,12 @@
         <th>
             Status
         </th>
+        <th>
+            User
+        </th>
+        <th>
+            Is Approved?
+        </th>
     </tr>
     </thead>
     <tbody>
@@ -44,7 +50,7 @@
         <td>
             @Model.ToDoTaskDto.DueDateTime
         </td>
-        <th>
+        <td>
             @if (@Model.Classifications.SingleOrDefault(c => c.Id == Model.ToDoTaskDto.ClassificationId) != null)
             {
                 @Model.Classifications.SingleOrDefault(c => c.Id == Model.ToDoTaskDto.ClassificationId).Name
@@ -53,10 +59,24 @@
             {
                 @:N/A
             }
-        </th>
-        <th>
+        </td>
+        <td>
             @Model.ToDoTaskDto.Status
-        </th>
+        </td>
+        <td>
+            @Model.Users.SingleOrDefault(u => u.Id == Model.ToDoTaskDto.UserId).Name
+        </td>
+        <td>
+            @if (Model.ToDoTaskDto.IsApproved)
+            {
+                <text>Approved</text>
+            }
+            else
+            {
+                <div>Not Approved</div>
+                @Html.ActionLink("Approve","Approve",Model.ToDoTaskDto.Id)
+            }
+        </td>
     </tr>
     </tbody>
 </table>

@@ -47,7 +47,7 @@ namespace ToDoList.DAL.Repositories
 
         public IEnumerable<ToDoTask> Find(Func<ToDoTask, Boolean> predicate)
         {
-            return db.ToDoTasks.Where(predicate).ToList();
+            return db.ToDoTasks.Include(t => t.Classification).Include(t => t.ConnectedToDoTask).Include(t => t.User).Where(predicate).ToList();
         }
 
         public void Delete(int id)

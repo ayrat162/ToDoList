@@ -22,12 +22,12 @@
             <th>
                 Status
             </th>
-        @if (Check.IsAdmin(User))
-        {
             <th>
                 User
             </th>
-        }
+            <th>
+                Is Approved?
+            </th>
             <th>
                 Edit
             </th>
@@ -68,14 +68,16 @@
                     {
                         data: "status"
                     },
-            @if (Check.IsAdmin(User))
-            {
-                <text>
                     {
                         data: "userUserName"
                     },
-                </text>
-            }
+                    {
+                        data: "isApproved",
+                        render: function (data, type, task) {
+                            if (task.isApproved) return "APPROVED";
+                            else return "NO";
+                        }
+                    },
                     {
                         data: "id",
                         render: function (data, type, task) {

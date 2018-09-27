@@ -16,6 +16,7 @@ namespace ToDoList.Models.DTO
         public string UserUserName { get; set; }
         public string UserId { get; set; }
         public string UserEmail { get; set; }
+        public bool IsApproved { get; set; }
         public string CreatedById { get; set; }
     }
 }

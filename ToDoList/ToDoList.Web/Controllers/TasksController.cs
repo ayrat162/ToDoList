@@ -29,6 +29,7 @@ namespace ToDoList.Web.Controllers
         [System.Web.Mvc.Route("")]
         public ActionResult Index()
         {
+            //this action works using DataTables JS library and TasksApi controller 
             return View();
         }
 
@@ -46,6 +47,7 @@ namespace ToDoList.Web.Controllers
             {
                 ToDoTaskDto = toDoTaskDto,
                 Classifications = _toDoListService.GetClassifications(),
+                Users = _userService.GetAllUsers(),
                 PictureDto = _toDoListService.GetPicture(toDoTaskDto.PictureId)
             };
             return View(taskViewModel);
@@ -56,9 +58,6 @@ namespace ToDoList.Web.Controllers
         public ActionResult Save(TaskViewModel taskViewModel, HttpPostedFileBase uploadImage)
         {
             var currentUserId = User.Identity.GetUserId();
-            var taskId = taskViewModel.ToDoTaskDto.Id;
-            if (Helper.CanEditTask(currentUserId, taskId) == false)
-                throw new HttpResponseException(HttpStatusCode.Forbidden);
 
             var picture = new PictureDTO();
             if(uploadImage!=null)
@@ -75,6 +74,10 @@ namespace ToDoList.Web.Controllers
             }
             else // updating existing item
             {
+                var taskId = taskViewModel.ToDoTaskDto.Id;
+                if (Helper.CanEditTask(currentUserId, taskId) == false)
+                    throw new HttpResponseException(HttpStatusCode.Forbidden);
+
                 var toDoTaskDto = _toDoListService.GetToDoTask(taskViewModel.ToDoTaskDto.Id);
                 if (!Check.IsAdmin(User) && toDoTaskDto.UserId != currentUserId)
                     throw new HttpResponseException(HttpStatusCode.Forbidden);

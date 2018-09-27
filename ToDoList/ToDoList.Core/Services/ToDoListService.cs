@@ -36,6 +36,7 @@ namespace ToDoList.Core.Services
         {
             var toDoTask = Converter.Convert2Dal(toDoTaskDto);
             var newToDoTask = Database.ToDoTasks.Create(toDoTask);
+            toDoTaskDto.Id = newToDoTask.Id;
             ApproveOrSendApprovalEmail(toDoTaskDto);
             return newToDoTask.Id;
         }
@@ -92,7 +93,9 @@ namespace ToDoList.Core.Services
 
         public IEnumerable<ToDoTaskDTO> GetToDoTasksOf(string userId)
         {
-            var tasksOfUser = Database.ToDoTasks.Find(t => t.UserId == userId);
+            var childrenIds = Helper.ChildrenIdsOf(userId);
+            var tasksOfUser = Database.ToDoTasks.Find(
+                t => (t.UserId == userId || childrenIds.ToList().Exists(cId => cId == t.UserId)));
             return Converter.Convert2Dto(tasksOfUser);
         }
 

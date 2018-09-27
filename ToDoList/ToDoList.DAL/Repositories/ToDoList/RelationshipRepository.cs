@@ -43,7 +43,7 @@ namespace ToDoList.DAL.Repositories
 
         public IEnumerable<Relationship> Find(Func<Relationship, Boolean> predicate)
         {
-            return db.Relationships.Include(r => r.Boss).Where(predicate).ToList();
+            return db.Relationships.Include(r => r.Boss).Include(r => r.Child).Where(predicate).ToList();
         }
 
         public void Delete(int id)

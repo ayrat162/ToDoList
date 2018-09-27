@@ -31,6 +31,7 @@ namespace ToDoList.Web.Controllers
         [System.Web.Mvc.Route("Users")]
         public ActionResult AllUsers()
         {
+            //this action works using DataTables JS library and UsersApi controller 
             return View();
         }
 
